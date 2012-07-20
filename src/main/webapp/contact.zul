@@ -1,0 +1,6 @@
+<groupbox mold="3d" hflex="1">
+	<hlayout sclass="z-valign-top">
+		<image src="images/avatars/unknown.jpg" width="32px" height="32px" />
+		<label value="Surname, First-name" />
+	</hlayout>
+</groupbox>

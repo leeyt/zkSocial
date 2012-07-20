@@ -1,0 +1,488 @@
+<?page title="ZK Facebook-like Demo" contentType="text/html;charset=UTF-8" ?>
+<?style src="/css/demo.css.dsp"?>
+
+<!-- Entire Window -->
+<window
+	id="mainWindow"
+	width="100%" height="100%" 
+	onOrientationChange='alert("xxx")'
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('org.zkoss.demo.zkFacebook.vm.NewsfeedVM')">
+
+	<!-- Masking the main window while giving feedback to newsfeed post 
+	  TODO: Improve user experience by merging modal screen into
+	        feedback popup, so that they appear and disappear together.
+	-->	
+	<div
+		sclass="modal"
+		visible="@load(vm.modalShow)"
+		onClick='@command("hideModal")' />
+	<!-- -->
+	
+	<!-- Divide into Menu Area and Content Area -->
+	<borderlayout>
+	    <!-- Navigation Area -->
+		<west
+			id="menuPanel"
+			sclass="menuPanel"
+			autoscroll="true"
+			hflex="min"
+			border="none"
+			collapsible="true"
+			cmargins="0,0,0,0"
+			open="@bind(vm.menuOpen)"
+			visible="@bind(vm.menuOpen)">
+			
+			<!-- Search Textbox -->
+			<caption>
+				<textbox 
+					sclass="left search" 
+					style="" placeholder="Search" />
+			</caption>
+			<!-- -->
+			
+			<!-- Menu Area -->
+			<vlayout spacing="0">
+				
+				<!-- Current User -->
+				<hlayout sclass="function-item">
+					<image src="images/avatars/unknown.jpg" />
+					<label sclass="title" value="Neil Lee" />
+				</hlayout>
+				<!-- -->
+				
+				<!-- FAVORITES -->
+				<label sclass="function-category" value="FAVORITES" />
+				
+				<hlayout sclass="function-item">
+					<image src="images/items/icon_newsfeed.png" />
+					<label sclass="title" value="News Feed" />
+					<label sclass="count" value="8" />
+				</hlayout>
+				<hlayout sclass="function-item">
+					<image src="images/items/icon_messages.png" />
+					<label sclass="title" value="Messages" />
+					<label sclass="" value="" />
+				</hlayout>
+				<hlayout sclass="function-item">
+					<image src="images/items/icon_nearby.png" />
+					<label sclass="title" value="Nearby" />
+					<label sclass="count" value="5" />
+				</hlayout>
+				<hlayout sclass="function-item">
+					<image src="images/items/icon_events.png" />
+					<label sclass="title" value="Events" />
+					<label sclass="" value="" />
+				</hlayout>
+				<hlayout sclass="function-item">
+					<image src="images/items/icon_friends.png" />
+					<label sclass="title" value="Friends" />
+					<label sclass="count" value="15" />
+				</hlayout>
+				<!-- -->
+	
+				<!-- GROUPS -->	
+				<label sclass="function-category" value="GROUPS" />
+
+				<hlayout sclass="function-item">
+					<image src="images/items/groupEdu.png" />
+					<label sclass="title" value="Internal Training" />
+				</hlayout>
+				<hlayout sclass="function-item">
+					<image src="images/items/groupClub.png" />
+					<label sclass="title" value="Study Group" />
+				</hlayout>
+				<!--  -->
+				
+				<!-- FRIENDS -->
+				<label sclass="function-category" value="FRIENDS" />
+				
+				<hlayout sclass="function-item">
+					<image src="images/items/closeFriends.png" />
+					<label sclass="title" value="Close Friends" />
+				</hlayout>
+				<hlayout sclass="function-item">
+					<image src="images/items/workFriends.png" />
+					<label sclass="title" value="Potix Corporation" />
+				</hlayout>
+				<hlayout sclass="function-item">
+					<image src="images/items/schoolFriends.png" />
+					<label sclass="title" value="W3C Schools" />
+				</hlayout>
+				<hlayout sclass="function-item">
+					<image src="images/items/otherFriends.png" />
+					<label sclass="title" value="Other Friends" />
+				</hlayout>
+				<hlayout sclass="function-item">
+					<image src="" />
+					<label sclass="title" value="See All" />
+				</hlayout>				
+				<!--  -->
+
+				<!-- APPS -->	
+				<label sclass="function-category" value="APPS" />
+				<hlayout sclass="function-item">
+					<image src="images/items/appCenter.png" />
+					<label sclass="title" value="App Center" />
+				</hlayout>				
+				<hlayout sclass="function-item">
+					<image src="images/items/myCalendar.gif" />
+					<label sclass="title" value="My Calendar" />
+				</hlayout>				
+				<hlayout sclass="function-item">
+					<image src="images/items/photoApp.png" />
+					<label sclass="title" value="Photos" />
+				</hlayout>				
+				<hlayout sclass="function-item">
+					<image src="images/items/notes.png" />
+					<label sclass="title" value="Notes" />
+				</hlayout>				
+				<hlayout sclass="function-item">
+					<image src="images/items/yahoo.gif" />
+					<label sclass="title" value="Yahoo!" />
+				</hlayout>				
+				<hlayout sclass="function-item">
+					<image src="" />
+					<label sclass="title" value="See All" />
+				</hlayout>				
+				<!--  -->
+				
+				<!-- INTERESTS -->
+				<label sclass="function-category" value="INTERESTS" />
+
+				<hlayout sclass="function-item">
+					<image src="images/items/subscribe.png" />
+					<label sclass="title" value="Subscriptions" />
+				</hlayout>				
+				<!--  -->
+
+				<!-- SETTINGS -->
+				<label sclass="function-category" value="" />
+				<hlayout sclass="function-item">
+					<image src="images/items/helpCenter.png" />
+					<label sclass="title" value="Help Center" />
+				</hlayout>				
+				<hlayout sclass="function-item">
+					<image src="images/items/settings.png" />
+					<label sclass="title" value="Settings" />
+				</hlayout>				
+				<hlayout sclass="function-item">
+					<image src="" />
+					<label sclass="title" value="Edit Favorites" />
+				</hlayout>				
+				<!--  -->
+			</vlayout>
+			<!-- /Menu Area -->
+		</west>
+		<!-- /Navigation Area -->
+		
+		<zscript>
+			<![CDATA[
+				public void doSwipe(SwipeEvent event) {
+					String direction = event.getSwipeDirection();
+					if (direction.equals("left") && menuPanel.isOpen())
+						menuPanel.setOpen(false);
+					if (direction.equals("right") && !menuPanel.isOpen())
+						menuPanel.setOpen(true);
+				}
+			]]>
+		</zscript>
+
+		<!-- Content Area -->		
+		<center
+			id="contentPanel"
+			sclass="contentPanel"
+			border="none"
+			onSwipe="doSwipe(event);">
+			
+			<!-- Title Bar -->
+			<caption>
+				<image
+					sclass="button touchable left" 
+					src="images/icons/icon_menuToggle.png"
+					onClick='@command("toggleMenu")' />
+					
+				<div sclass="left" width="50px" height="10px" />
+								
+				<image 
+					sclass="touchable left"
+					src="images/icons/inviteNone.png"
+					onClick='alert("No Invitations");' />
+				<image
+					sclass="touchable left"
+					src="images/icons/messageNone.png"
+					onClick='alert("No Messages");' />
+				<image
+					sclass="touchable left"
+					src="images/icons/notifNone.png"
+					onClick='alert("No Notifications")' />
+				
+				<div sclass="pageTitle">
+					<label
+						value="News Feed" />
+				</div>
+				
+				<button
+					id="btnAction" 
+					sclass="right"
+					label="Sort" 
+					popup="sortPopup" />
+				
+				<popup id="sortPopup">
+					<window title="Sort Order" border="normal">
+						<radiogroup orient="vertical">
+							<radio label="Top Stories" checked="true" onCheck='alert("Sort by Top Stories")' />
+							<radio label="Most Recent" onCheck='alert("Sort by Most Recent")' />
+						</radiogroup>
+					</window>
+				</popup> 
+			</caption>
+			<!-- /Title Bar -->
+			
+			<!-- Divide Content Area into 2 Columns -->
+			<borderlayout>
+				<!-- Newsfeed Post Area -->
+				<center
+					id="newsfeedPanel"
+					sclass="newsfeedPanel"
+					autoscroll="true" >
+					 
+					<!-- Toolbar -->
+					<caption>
+						<toolbar width="100%">
+							<toolbarbutton image="images/icons/status.png" label="Status"   onClick='Clients.showNotification("Status")'   />
+							<toolbarbutton image="images/icons/photo.png" label="Photo"    onClick='alert("Photo")'    />
+							<toolbarbutton image="images/icons/checkin.png" label="Check In" onClick='alert("Check In")' />
+						</toolbar>
+						<popup id="statusPopup">
+							<window title="UpdateStatus" border="none">
+							</window>
+						</popup>
+						<popup id="photoPopup">
+							<vlayout>
+								<button label="Take Photo or Video" />
+								<button label="Choose From Library" />
+							</vlayout>
+						</popup>
+						<popup id="checkInPopup">
+							<window title="UpdateStatus" border="none">
+							</window>
+						</popup>
+					</caption>			
+					
+					<!-- <Newsfeed Posts> --> 
+					<div>
+						<vlayout children="@load(vm.postModel)">
+							<template name="children" var="post">
+								<include src="post.zul" /> 
+							</template>
+						</vlayout>
+	
+						<popup 
+							id="feedbackPopup" 
+							width="30%"
+							height="100%"
+							onOpen='@command("hideModal")' >
+							<include src="comment.zul"/>
+						</popup>
+					</div>	
+					<!-- </Newsfeed Posts> -->
+				</center>
+				<east autoscroll="true">
+					<vlayout>
+						<hlayout>
+					  		<textbox 
+					  			sclass="left search" 
+					  			placeholder="Search Friends" />
+					  		<image
+					  			sclass="touchable"
+					  			src="images/items/settings.png"
+					  			width="32px" height="32px"
+					  			onClick='alert("Go Offline")' />
+					  	</hlayout>
+					  	
+						<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Friend #1" />
+					  		<image
+					  			src="images/status/mobile.png" />
+					  	</hlayout>
+						<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Friend #2" />
+					  		<image
+					  			src="images/status/active.png" />
+					  	</hlayout>
+						<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Friend #3" />
+					  		<image
+					  			src="" />
+					  	</hlayout>
+						<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Friend #4" />
+					  		<image
+					  			src="images/status/active.png" />
+					  	</hlayout>
+						<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Friend #5" />
+					  		<image
+					  			src="" />
+					  	</hlayout>
+						<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Friend #6" />
+					  		<image
+					  			src="images/status/mobile.png" />
+					  	</hlayout>
+						<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Friend #7" />
+					  		<image
+					  			src="images/status/mobile.png" />
+					  	</hlayout>
+						<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Friend #8" />
+					  		<image
+					  			src="images/status/active.png" />
+					  	</hlayout>
+						<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Friend #9" />
+					  		<image
+					  			src="images/status/mobile.png" />
+					  	</hlayout>
+						<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Friend #10" />
+					  		<image
+					  			src="" />
+					  	</hlayout>
+					  	
+					  	<label value="More Online Friends (12)" />
+					  	
+					  	<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Online #1" />
+					  		<image
+					  			src="images/status/active.png" />
+					  	</hlayout>
+					  	<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Online #2" />
+					  		<image
+					  			src="images/status/active.png" />
+					  	</hlayout>
+					  	<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Online #3" />
+					  		<image
+					  			src="images/status/active.png" />
+					  	</hlayout>
+					  	<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Online #4" />
+					  		<image
+					  			src="images/status/active.png" />
+					  	</hlayout>
+					  	<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Online #5" />
+					  		<image
+					  			src="images/status/active.png" />
+					  	</hlayout>
+					  	<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Online #6" />
+					  		<image
+					  			src="images/status/active.png" />
+					  	</hlayout>
+					  	<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Online #7" />
+					  		<image
+					  			src="images/status/active.png" />
+					  	</hlayout>
+					  	<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Online #8" />
+					  		<image
+					  			src="images/status/active.png" />
+					  	</hlayout>
+					  	<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Online #9" />
+					  		<image
+					  			src="images/status/active.png" />
+					  	</hlayout>
+					  	<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Online #10" />
+					  		<image
+					  			src="images/status/active.png" />
+					  	</hlayout>
+					  	<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Online #11" />
+					  		<image
+					  			src="images/status/active.png" />
+					  	</hlayout>
+					  	<hlayout>
+					  		<image
+					  			src="images/avatars/unknown.jpg"
+					  			width="32px" height="32px" />
+					  		<label sclass="title" value="Online #12" />
+					  		<image
+					  			src="images/status/active.png" />
+					  	</hlayout>
+					 </vlayout>
+				</east>
+			</borderlayout>
+		</center>
+	</borderlayout>
+</window>

@@ -1,0 +1,34 @@
+<borderlayout>
+	<center autoscroll="true">
+		<caption>
+			<button 
+				sclass="right"
+				label='@bind(vm.likeStatus ? "Unlike" : "Like")'
+				onClick='@command("likePost")' />
+		</caption>
+		<vlayout children="@load(vm.currentPost.commentList)">
+			<template name="children" var="comment">
+				<hlayout sclass="z-valign-top">
+					<image
+						width="24px"
+						height="24px"
+						src="@load(comment.author.avatar)" />
+					<vlayout width="90%">
+						<label value="@load(comment.author.name)" />
+						<html content="@load(comment.content)" />
+						<label value="@load(comment.time)" />
+					</vlayout>
+				</hlayout>
+			</template>
+		</vlayout>
+	</center>
+	<south>
+		<hlayout>
+			<textbox 
+				id="txtComment"
+				placeholder="Write a comment..." 
+				value='@bind(vm.currentComment)' />
+			<button label="Send" onClick='@command("addComment")' />
+		</hlayout>
+	</south>
+</borderlayout>

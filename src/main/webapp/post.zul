@@ -1,0 +1,37 @@
+<zk>
+<hlayout sclass="z-valign-top">
+
+	<image
+		src="@load(post.author.avatar)" />
+		
+	<vlayout>
+		<label value="@load(post.author.name)" />
+		<div width="90%" style="word-wrap: break-word; ">
+			<html sclass="post" content="@load(post.content)" />
+		</div>
+		<label value="@load(post.time)" />
+		<hlayout>
+		    <!-- <LikeArea> -->
+			<div
+				sclass="like-area touchable" 
+				onClick='@command("feedback", instance=post)'>
+				<a>Like</a>
+				<label value="‧" />
+				<a>Comment</a>
+				<span visible="@bind(post.likeCount > 0)">
+					<image
+						src="images/icons/likeIcon.png" />
+					<label value="@bind(post.likeCount)" />
+				</span>
+				<span visible="@bind(post.commentCount > 0)">
+					<image
+						src="images/icons/commentIcon.png" />
+					<label value="@bind(post.commentCount)" />
+				</span>
+			</div>
+			<!-- </LikeArea -->
+		</hlayout>
+	</vlayout>
+</hlayout>
+<separator bar="true" />
+</zk>
