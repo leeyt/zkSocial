@@ -3,7 +3,6 @@ package org.zkoss.demo.zkSocial.vo;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 // Individual post on the newsfeed page
 public class Post {

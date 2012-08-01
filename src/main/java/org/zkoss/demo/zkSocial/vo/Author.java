@@ -1,8 +1,5 @@
 package org.zkoss.demo.zkSocial.vo;
 
-import java.util.List;
-import java.util.Random;
-
 // Represent poster of news or commenter on posts
 public class Author {
 	private String name;

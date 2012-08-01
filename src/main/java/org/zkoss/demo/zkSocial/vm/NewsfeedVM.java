@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.servlet.ServletRequest;
 
+import net.sf.jasperreports.engine.type.OrientationEnum;
+
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -23,6 +25,7 @@ import org.zkoss.demo.zkSocial.vo.Post;
 import org.zkoss.web.fn.ServletFns;
 import org.zkoss.web.servlet.Servlets;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.OrientationEvent;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
@@ -418,7 +421,7 @@ public class NewsfeedVM {
 	@Command
 	@NotifyChange({"contactOpen", "viewportWidth"})
 	public void changeOrientation(@BindingParam("orient") String orient) {
-		Clients.showNotification(orient, "info", null, "middle_center", 1000);
+		Clients.showNotification(orient, Clients.NOTIFICATION_TYPE_WARNING, null, "middle_center", 1000);
 		
 		this.orient = orient;
 		
@@ -455,7 +458,6 @@ public class NewsfeedVM {
 		} else
 			return;
 		
-		Clients.showNotification(msg, "info", comp, pos, 1000);
-
+		Clients.showNotification(msg, Clients.NOTIFICATION_TYPE_WARNING, comp, pos, 1000);
 	}
 }

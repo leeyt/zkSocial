@@ -1,4 +1,0 @@
-<hlayout>
-	<label id="label1" value="${arg.label1}" />
-	<label id="label2" value="${arg.label2}" />
-</hlayout>

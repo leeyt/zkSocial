@@ -29,12 +29,12 @@
 				
 				<span visible="@bind(post.likeCount > 0)">
 					<image
-						src="images/icons/likeIcon.png" />
+						src="images/icons/icon_like.png" />
 					<label value="@bind(post.likeCount)" />
 				</span>
 				<span visible="@bind(post.commentCount > 0)">
 					<image
-						src="images/icons/commentIcon.png" />
+						src="images/icons/icon_comment.png" />
 					<label value="@bind(post.commentCount)" />
 				</span>
 			</div>

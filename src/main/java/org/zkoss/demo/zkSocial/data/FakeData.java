@@ -6,7 +6,6 @@ import java.util.Random;
 
 import org.zkoss.demo.zkSocial.vo.Author;
 import org.zkoss.demo.zkSocial.vo.Post;
-import org.zkoss.zul.Calendar;
 
 public class FakeData {
 	// Used to randomize data
