@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.zkoss</groupId>
-	<artifactId>Facebook-Demo</artifactId>
+	<artifactId>zkSocial</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<properties>
 		<zk.version>6.5.0-SNAPSHOT</zk.version>
@@ -12,8 +12,8 @@
 		<packname>-${project.version}-FL-${maven.build.timestamp}</packname>
 	</properties>
 	<packaging>war</packaging>
-	<name>The Facebook-Demo Project</name>
-	<description>The Facebook-Demo Project</description>
+	<name>ZK Social</name>
+	<description>ZK Social</description>
 	<licenses>
 		<license>
 			<name>GNU LESSER GENERAL PUBLIC LICENSE, Version 3</name>

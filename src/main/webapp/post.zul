@@ -1,14 +1,19 @@
 <zk>
+<separator spacing="5px" />
 <hlayout sclass="z-valign-top">
-
+	<separator orient="horizontal" spacing="5px" />
 	<image
+		width="50px"
+		height="50px"
 		src="@load(post.author.avatar)" />
-		
+	<separator orient="horizontal" spacing="10px" />	
 	<vlayout>
-		<label value="@load(post.author.name)" />
-		<div width="90%" style="word-wrap: break-word; ">
-			<html sclass="post" content="@load(post.content)" />
-		</div>
+		<label 
+			style="color: blue; font-weight: bold; font-size: 16px;" 
+			value="@load(post.author.name)" />
+			
+		<html sclass="post" content="@load(post.content)" />
+		
 		<label value="@load(post.time)" />
 		<hlayout>
 		    <!-- <LikeArea> -->
@@ -18,6 +23,10 @@
 				<a>Like</a>
 				<label value="‧" />
 				<a>Comment</a>
+				
+				<separator 
+					orient="vertical" spacing="100px" if="${post.likeCount > 0 || post.commentCount > 0}" />
+				
 				<span visible="@bind(post.likeCount > 0)">
 					<image
 						src="images/icons/likeIcon.png" />
@@ -33,5 +42,6 @@
 		</hlayout>
 	</vlayout>
 </hlayout>
+<separator spacing="5px" />
 <separator bar="true" />
 </zk>

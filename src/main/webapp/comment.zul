@@ -8,17 +8,22 @@
 		</caption>
 		<vlayout children="@load(vm.currentPost.commentList)">
 			<template name="children" var="comment">
+				<separator spacing="2px" />
 				<hlayout sclass="z-valign-top">
+					<separator spacing="2px" />
 					<image
 						width="24px"
 						height="24px"
 						src="@load(comment.author.avatar)" />
-					<vlayout width="90%">
-						<label value="@load(comment.author.name)" />
+					<vlayout>
+						<label 
+							style="color: blue; font-weight: bold; font-size: 16px;" 
+							value="@load(comment.author.name)" />
 						<html content="@load(comment.content)" />
 						<label value="@load(comment.time)" />
 					</vlayout>
 				</hlayout>
+				<separator bar="true" />
 			</template>
 		</vlayout>
 	</center>
@@ -26,6 +31,7 @@
 		<hlayout>
 			<textbox 
 				id="txtComment"
+				sclass="commentInput"
 				placeholder="Write a comment..." 
 				value='@bind(vm.currentComment)' />
 			<button label="Send" onClick='@command("addComment")' />

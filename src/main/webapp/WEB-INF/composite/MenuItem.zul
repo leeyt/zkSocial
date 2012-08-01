@@ -1,0 +1,9 @@
+<zk>
+	<listcell sclass="menuitem">
+		<hlayout>
+			<image id="icon"  sclass="mi-icon"  src="${arg.icon}"    />
+			<label id="title" sclass="mi-title" value="${arg.title}" />
+			<label id="count" sclass="mi-count" value="${arg.count}" />
+		</hlayout>
+	</listcell>
+</zk>

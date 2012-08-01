@@ -4,8 +4,8 @@
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"> 
 
-	<description><![CDATA[My ZK Application]]></description>
-	<display-name>ZK Facebook</display-name>
+	<description><![CDATA[ZK Social]]></description>
+	<display-name>ZK Social</display-name>
 
 	<!-- //// -->
 	<!-- ZK -->
@@ -45,14 +45,6 @@
 		-->
 		<load-on-startup>1</load-on-startup><!-- Must -->
 	</servlet>
-	<servlet>
-		<servlet-name>mockImage</servlet-name>
-		<servlet-class>org.zkoss.demo.zkFacebook.MockImage</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>mockImage</servlet-name>
-		<url-pattern>/mockImage</url-pattern>
-	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>zkLoader</servlet-name>
 		<url-pattern>*.zul</url-pattern>
@@ -134,34 +126,14 @@
 		<url-pattern>*.dsp</url-pattern>
 	</servlet-mapping>
 	
-	
 	<!-- /////////// -->
-	<!-- [Optional] Session timeout -->
+	<!-- [Optional] Session timeout
 	<session-config>
 		<session-timeout>60</session-timeout>
 	</session-config>
+	-->
 
 	<!-- [Optional] MIME mapping -->
-	<mime-mapping>
-		<extension>doc</extension>
-		<mime-type>application/vnd.ms-word</mime-type>
-	</mime-mapping>
-	<mime-mapping>
-		<extension>gif</extension>
-		<mime-type>image/gif</mime-type>
-	</mime-mapping>
-	<mime-mapping>
-		<extension>htm</extension>
-		<mime-type>text/html</mime-type>
-	</mime-mapping>
-	<mime-mapping>
-		<extension>html</extension>
-		<mime-type>text/html</mime-type>
-	</mime-mapping>
-	<mime-mapping>
-		<extension>jpeg</extension>
-		<mime-type>image/jpeg</mime-type>
-	</mime-mapping>
 	<mime-mapping>
 		<extension>jpg</extension>
 		<mime-type>image/jpeg</mime-type>
@@ -171,28 +143,8 @@
 		<mime-type>text/javascript</mime-type>
 	</mime-mapping>
 	<mime-mapping>
-		<extension>pdf</extension>
-		<mime-type>application/pdf</mime-type>
-	</mime-mapping>
-	<mime-mapping>
 		<extension>png</extension>
 		<mime-type>image/png</mime-type>
-	</mime-mapping>
-	<mime-mapping>
-		<extension>txt</extension>
-		<mime-type>text/plain</mime-type>
-	</mime-mapping>
-	<mime-mapping>
-		<extension>xls</extension>
-		<mime-type>application/vnd.ms-excel</mime-type>
-	</mime-mapping>
-	<mime-mapping>
-		<extension>xml</extension>
-		<mime-type>text/xml</mime-type>
-	</mime-mapping>
-	<mime-mapping>
-		<extension>zhtml</extension>
-		<mime-type>text/html</mime-type>
 	</mime-mapping>
 	<mime-mapping>
 		<extension>zul</extension>
@@ -201,8 +153,5 @@
 
 	<welcome-file-list>
 		<welcome-file>index.zul</welcome-file>
-		<welcome-file>index.zhtml</welcome-file>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
 	</welcome-file-list>
 </web-app>

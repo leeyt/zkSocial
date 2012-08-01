@@ -1,0 +1,9 @@
+<zk>
+	<listcell sclass="contact">
+		<hlayout>
+			<image id="picture" sclass="contact-picture" src="${arg.picture}" />
+			<label id="name"    sclass="contact-name"    value="${arg.name}"  />
+			<image id="status"  sclass="contact-status"  src="${arg.status}"  />
+		</hlayout>
+	</listcell>
+</zk>
