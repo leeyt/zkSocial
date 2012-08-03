@@ -9,11 +9,11 @@ import org.zkoss.zul.Label;
 import org.zkoss.zul.Listitem;
 
 public class Contact extends Listitem implements IdSpace {
-    private static final long serialVersionUID = -4653481165297843651L;
-    
-    private static final String STATUS_ACTIVE = "images/status/active.png";
-    private static final String STATUS_MOBILE = "images/status/mobile.png";
-    
+	private static final long serialVersionUID = -4653481165297843651L;
+
+	private static final String STATUS_ACTIVE = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAQCAYAAADagWXwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAEVJREFUKFNjYBggkLrCIAGIdwLxVyidAHYKVOInkP6PhEH8BJAkSAeyBIy9EyQJMgqb5FeCOkGOwW4nkqMwXTtAoYfTWgCjPl0laAq3hwAAAABJRU5ErkJggg==";
+	private static final String STATUS_MOBILE = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAQCAYAAAArij59AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAD5JREFUKFNjYKA9mDpvUxoQ/8eB0xhAEjBnQBWnIfH/gxXAJLDQEAW4PAKWGzIKiPYmUOFCEEYPKPxBTSi2AfdIitO9E5tOAAAAAElFTkSuQmCC";
+
 	@Wire
 	private Image picture;
 	@Wire
@@ -45,17 +45,17 @@ public class Contact extends Listitem implements IdSpace {
 	public String getStatus() {
 		String statusImage = this.status.getSrc();
 		
-		if (statusImage.equals(STATUS_ACTIVE))
+		if (STATUS_ACTIVE.equals(statusImage))
 			return "active";
-		if (statusImage.equals(STATUS_MOBILE))
+		else if (STATUS_MOBILE.equals(statusImage))
 			return "mobile";
 		return "unknown";
 	}
 	
 	public void setStatus(String status) {
-		if (status.equals("active"))
+		if ("active".equals(status))
 			this.status.setSrc(STATUS_ACTIVE);
-		else if (status.equals("mobile"))
+		else if ("mobile".equals(status))
 			this.status.setSrc(STATUS_MOBILE);
 		else
 			this.status.setSrc("");

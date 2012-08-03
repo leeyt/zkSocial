@@ -1,0 +1,50 @@
+<?component
+	name="MenuItem"
+	class="org.zkoss.demo.zkSocial.composite.MenuItem" ?>
+<?component
+	name="Contact"
+	class="org.zkoss.demo.zkSocial.composite.Contact" ?>
+
+<zk xmlns:ca="client/attribute">
+	
+	<!-- Sidebar -->
+	<div>
+		<!-- Current User -->
+		<listbox
+			ca:data-scrollable="false"
+			width="200px"
+			onSelect='@command("showMessage", pos="end_center")'>
+			<Contact
+				picture="@load(vm.currentUser.avatar)"
+				name="@load(vm.currentUser.name)"
+				status="unknown" />
+		</listbox>
+		<!--  -->
+	
+		<!-- Menu Groups -->
+		<vlayout 
+			spacing="0"
+			children="@load(vm.menuGroups)">
+			
+			<template name="children" var="menuGroup">
+				<listbox 
+					ca:data-scrollable="false"
+					width="200px"
+					model="${menuGroup.menuItems}"
+					onSelect='@command("showMessage", pos="end_center")'>
+					<listhead sclass="menu-category">
+						<listheader label="${menuGroup.groupName}" />
+					</listhead>
+					<template name="model">
+						<MenuItem
+							icon="${each.icon}"
+							title="${each.title}"
+							count="${each.count}" />
+					</template>
+				</listbox>
+			</template>
+			<!--  -->
+		</vlayout>
+	</div>
+	<!--  -->
+</zk>

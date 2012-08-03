@@ -3,7 +3,7 @@ package org.zkoss.demo.zkSocial.vo;
 public class MenuItemBean {
 	private String icon;
 	private String title;
-	private int    count;
+	private int	   count;
 	
 	public MenuItemBean() {
 		

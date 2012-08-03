@@ -9,8 +9,8 @@ import org.zkoss.zul.Label;
 import org.zkoss.zul.Listitem;
 
 public class MenuItem extends Listitem implements IdSpace {
-    private static final long serialVersionUID = -4653481165297843651L;
-    
+	private static final long serialVersionUID = -4653481165297843651L;
+	
 	@Wire
 	private Image icon;
 	@Wire

@@ -5,26 +5,26 @@ import java.util.Date;
 import java.util.List;
 
 // Individual post on the newsfeed page
-public class Post {
+public class PostBean {
 	// Posting Author
-	private Author author;
+	private AuthorBean author;
 	
 	// Content of the post
 	private String content;
 
 	private Date time;
 
-	private List<Author> likeList    = new ArrayList<Author>();
-	private List<Post>   commentList = new ArrayList<Post>();
+	private List<AuthorBean> likeList	 = new ArrayList<AuthorBean>();
+	private List<PostBean>   commentList = new ArrayList<PostBean>();
 	
-	public Post() {
+	public PostBean() {
 	}
 	
-	public Author getAuthor() {
+	public AuthorBean getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(Author author) {
+	public void setAuthor(AuthorBean author) {
 		this.author = author;
 	}
 	
@@ -38,27 +38,27 @@ public class Post {
 	
 	public Date getTime() {
 		return time;
-    }
+	}
 
 	public void setTime(Date time) {
-    	this.time = time;
-    }
+		this.time = time;
+	}
 	
-	public List<Author> getLikeList() {
-    	return likeList;
-    }
+	public List<AuthorBean> getLikeList() {
+		return likeList;
+	}
 
-	public void setLikeList(List<Author> likeList) {
-    	this.likeList = likeList;
-    }
+	public void setLikeList(List<AuthorBean> likeList) {
+		this.likeList = likeList;
+	}
 
-	public List<Post> getCommentList() {
-    	return commentList;
-    }
+	public List<PostBean> getCommentList() {
+		return commentList;
+	}
 
-	public void setCommentList(List<Post> commentList) {
-    	this.commentList = commentList;
-    }
+	public void setCommentList(List<PostBean> commentList) {
+		this.commentList = commentList;
+	}
 
 	public int getLikeCount() {
 		return likeList.size();

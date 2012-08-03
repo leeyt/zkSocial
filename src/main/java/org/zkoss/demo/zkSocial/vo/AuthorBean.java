@@ -1,32 +1,32 @@
 package org.zkoss.demo.zkSocial.vo;
 
 // Represent poster of news or commenter on posts
-public class Author {
+public class AuthorBean {
 	private String name;
 	private String avatar;
 
-	public Author() {
+	public AuthorBean() {
 	}
 	
-	public Author(String name, String avatar) {
+	public AuthorBean(String name, String avatar) {
 		this.name = name;
 		this.avatar = avatar;
 	}
 	
 	public String getName() {
-    	return name;
-    }
+		return name;
+	}
 
 	public void setName(String name) {
-    	this.name = name;
-    }
+		this.name = name;
+	}
 
 	public String getAvatar() {
-    	return avatar;
-    }
+		return avatar;
+	}
 
 	public void setAvatar(String avatar) {
-    	this.avatar = avatar;
-    }
+		this.avatar = avatar;
+	}
 
 }

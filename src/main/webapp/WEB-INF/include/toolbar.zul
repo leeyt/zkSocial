@@ -1,0 +1,10 @@
+<zk>
+	<toolbar children="@load(vm.toolbarModel)">
+		<template name="children">
+			<toolbarbutton 
+				image="${each[1]}" 
+				label="${each[0]}"   
+				onClick='@command("showMessage", pos="after_pointer")' />
+		</template>
+	</toolbar>
+</zk>

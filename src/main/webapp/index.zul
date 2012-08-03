@@ -3,9 +3,6 @@
 	contentType="text/html;charset=UTF-8" ?>
 	
 <?component
-	name="MenuItem"
-	class="org.zkoss.demo.zkSocial.composite.MenuItem" ?>
-<?component
 	name="Contact"
 	class="org.zkoss.demo.zkSocial.composite.Contact" ?>
 
@@ -13,7 +10,7 @@
 
 	<!-- Main Window -->
 	<window
-		id="mainWindow" 
+		id="mainWindow"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('org.zkoss.demo.zkSocial.vm.NewsfeedVM')"
 		onOrientationChange='@command("changeOrientation", orient=event.orientation)'
@@ -23,7 +20,7 @@
 			
 		<!-- Masking the main window while giving feedback to newsfeed post 
 		  TODO: Improve user experience by merging modal screen into
-		        feedback popup, so that they appear and disappear together.
+				feedback popup, so that they appear and disappear together.
 		-->	
 		<div
 			sclass="modal"
@@ -32,17 +29,16 @@
 		</div>
 		<!--  -->
 		
-		<!-- Divide into Menu Area and Content Area -->
+		<!-- Divide the main layout into Menu Panel and Content Panel -->
 		<borderlayout
 			animationDisabled="true">
-		    <!-- Menu Panel -->
+			<!-- Menu Panel -->
 			<west
-				id="menuPanel"
 				sclass="menuPanel"
 				autoscroll="true"
 				collapsible="true"
-				open="@bind(vm.menuOpen)"
-				visible="@bind(vm.menuOpen)"
+				open="@load(vm.menuOpen)"
+				visible="@load(vm.menuOpen)"
 				width="200px">
 				
 				<!-- Search Textbox -->
@@ -53,100 +49,12 @@
 				</caption>
 				<!-- -->
 				
-				<!-- Menu Groups -->
-				<vlayout spacing="0">
-					
-					<!-- Current User -->
-					<listbox
-						ca:data-scrollable="false"
-						width="200px"
-						onSelect='@command("showMessage", pos="end_center")'>
-						<Contact
-							picture="images/avatars/zk.jpg"
-							name="ZK Team"
-							status="unknown" />
-					</listbox>
-					<!--  -->
-						
-					<!-- FAVORITES -->
-					<listbox 
-						ca:data-scrollable="false"
-						width="200px"
-						model="@load(vm.menu1)"
-						onSelect='@command("showMessage", pos="end_center")'>
-						<listhead sclass="menu-category">
-							<listheader label="FAVORITES" />
-						</listhead>
-						<template name="model" var="menuitem">
-							<MenuItem
-								icon="${menuitem.icon}"
-								title="${menuitem.title}"
-								count="${menuitem.count}" />
-						</template>
-					</listbox>
-					<!--  -->
-					
-					<!-- GROUPS -->
-					<listbox 
-						ca:data-scrollable="false"
-						width="200px"
-						model="@load(vm.menu2)"
-						onSelect='@command("showMessage", pos="end_center")'>
-						<listhead sclass="menu-category">
-							<listheader label="GROUPS" />
-						</listhead>
-						<template name="model" var="menuitem">
-							<MenuItem
-								icon="${menuitem.icon}"
-								title="${menuitem.title}"
-								count="${menuitem.count}" />
-						</template>
-					</listbox>
-					<!--  -->
-					
-					<!-- INTERESTS -->
-					<listbox 
-						ca:data-scrollable="false"
-						width="200px"
-						model="@load(vm.menu3)"
-						onSelect='@command("showMessage", pos="end_center")'>
-						<listhead sclass="menu-category">
-							<listheader label="INTERESTS" />
-						</listhead>
-						<template name="model" var="menuitem">
-							<MenuItem
-								icon="${menuitem.icon}"
-								title="${menuitem.title}"
-								count="${menuitem.count}" />
-						</template>
-					</listbox>
-					<!--  -->
-					
-					<!-- Management -->
-					<listbox 
-						ca:data-scrollable="false"
-						width="200px"
-						model="@load(vm.menu4)"
-						onSelect='@command("showMessage", pos="end_center")'>
-						<listhead sclass="menu-category">
-							<listheader label=" " />
-						</listhead>
-						<template name="model" var="menuitem">
-							<MenuItem
-								icon="${menuitem.icon}"
-								title="${menuitem.title}"
-								count="${menuitem.count}" />
-						</template>
-					</listbox>
-					<!--  -->
-				</vlayout>
-				<!--  -->
+				<include src="/WEB-INF/include/navigation.zul" />
 			</west>
 			<!--  -->
 			
 			<!-- Content Panel -->		
 			<center
-				id="contentPanel"
 				sclass="contentPanel"
 				border="none"
 				hflex="1"
@@ -154,68 +62,7 @@
 				
 				<!-- Title Bar -->
 				<caption>
-					<image
-						sclass="button touchable left" 
-						src="images/icons/icon_menuToggle.png"
-						onClick='@command("toggleMenu")' />
-					
-					<separator sclass="left" orient="vertical" spacing="50px" />	
-									
-					<image 
-						sclass="left touchable"
-						src="images/icons/icon_friendrequests.png"
-						onClick='Clients.showNotification("No Invitations", Clients.NOTIFICATION_TYPE_WARNING, self, "after_center", 1000);' />
-					<image
-						sclass="left touchable"
-						src="images/icons/icon_messagestop.png"
-						onClick='Clients.showNotification("No Messages", Clients.NOTIFICATION_TYPE_WARNING, self, "after_center", 1000);' />
-					<image
-						sclass="left touchable"
-						src="images/icons/icon_notifications.png"
-						onClick='Clients.showNotification("No Notifications", Clients.NOTIFICATION_TYPE_WARNING, self, "after_center", 1000)' />
-					
-					<label
-						sclass="left pageTitle"
-						value="News Feed" />
-					
-					<button
-						id="btnAction" 
-						sclass="right"
-						label="Sort" 
-						popup="sortPopup" />
-					
-					<popup id="sortPopup">
-						<window title="Sort Order" border="normal">
-							<radiogroup orient="vertical">
-								<radio label="Top Stories" checked="true">
-									<attribute name="onCheck">
-									<![CDATA[
-										Clients.showNotification(
-											"Sort by Top Stories", 
-											Clients.NOTIFICATION_TYPE_WARNING, 
-											null, 
-											"middle_center", 
-											1000
-										);
-									]]>
-									</attribute> 
-								</radio>
-								<radio label="Most Recent">
-									<attribute name="onCheck">
-									<![CDATA[
-										Clients.showNotification(
-											"Sort by Most Recent", 
-											Clients.NOTIFICATION_TYPE_WARNING, 
-											null, 
-											"middle_center", 
-											1000
-										);									        
-									]]>
-									</attribute> 
-								</radio> 
-							</radiogroup>
-						</window>
-					</popup> 
+					<include src="/WEB-INF/include/titlebar.zul" />
 				</caption>
 				<!--  -->
 				
@@ -223,26 +70,12 @@
 				<borderlayout>
 					<!-- Newsfeed Panel  -->
 					<center
-						id="newsfeedPanel"
 						sclass="newsfeedPanel"
 						autoscroll="true" >
 						 
 						<!-- Toolbar -->
 						<caption>
-							<toolbar width="100%">
-								<toolbarbutton 
-									image="images/icons/icon_status.png" 
-									label="Status"   
-									onClick='@command("showMessage", pos="after_pointer")' />
-								<toolbarbutton 
-									image="images/icons/icon_photo.png" 
-									label="Photo"    
-									onClick='@command("showMessage", pos="after_center")'  />
-								<toolbarbutton 
-									image="images/icons/icon_checkin.png" 
-									label="Check In" 
-									onClick='@command("showMessage", pos="after_center")'  />
-							</toolbar>
+							<include src="/WEB-INF/include/toolbar.zul" />
 						</caption>
 						<!--  -->	
 						
@@ -250,7 +83,7 @@
 						<div>
 							<vlayout children="@load(vm.postModel)">
 								<template name="children" var="post">
-									<include src="post.zul" /> 
+									<include src="/WEB-INF/include/post.zul" /> 
 								</template>
 							</vlayout>
 		
@@ -260,7 +93,7 @@
 								height="100%"
 								sclass="feedback"
 								onOpen='@command("hideModal")' >
-								<include src="comment.zul"/>
+								<include src="/WEB-INF/include/comment.zul"/>
 							</popup>
 						</div>	
 						<!--  -->

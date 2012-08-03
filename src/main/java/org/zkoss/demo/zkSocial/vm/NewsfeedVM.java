@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.servlet.ServletRequest;
 
-import net.sf.jasperreports.engine.type.OrientationEnum;
-
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -18,19 +16,20 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.demo.zkSocial.composite.Contact;
 import org.zkoss.demo.zkSocial.composite.MenuItem;
 import org.zkoss.demo.zkSocial.data.FakeData;
-import org.zkoss.demo.zkSocial.vo.Author;
+import org.zkoss.demo.zkSocial.vo.AuthorBean;
 import org.zkoss.demo.zkSocial.vo.ContactBean;
+import org.zkoss.demo.zkSocial.vo.MenuGroupBean;
 import org.zkoss.demo.zkSocial.vo.MenuItemBean;
-import org.zkoss.demo.zkSocial.vo.Post;
+import org.zkoss.demo.zkSocial.vo.PostBean;
 import org.zkoss.web.fn.ServletFns;
 import org.zkoss.web.servlet.Servlets;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.OrientationEvent;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelArray;
+import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Popup;
@@ -40,26 +39,18 @@ public class NewsfeedVM {
 	@Wire 
 	private Popup feedbackPopup;
 	
-	/**
-	 * If true, the client is mobile devices such as iphone/ipad/android phones
-	 */
-	private boolean mobile;
-	
-	public boolean isMobile() {
-		return mobile;
+	private static boolean isWideScreen(String orient) {
+		return "landscape".equals(orient);
 	}
-
-	/**
-	 * If mobile, assume started out as "landscape"
-	 * Changed when orientation change is detected.
-	 */
+	
+	// If mobile, assume started out as "landscape"
+	// Changed when orientation change is detected.
 	private String orient = "landscape";
 	
-	/**
-	 * Viewport Width
-	 */
-	private String viewportWidth;
+	// -------------------------------------------------------
 	
+	private String viewportWidth;
+
 	public String getViewportWidth() {
 		return viewportWidth;
 	}
@@ -67,12 +58,13 @@ public class NewsfeedVM {
 	public void setViewportWidth(String viewportWidth) {
 		this.viewportWidth = viewportWidth;
 	}
+	// -------------------------------------------------------
 	
+	private String css;
+
 	/**
 	 * Tablet and desktop may use different set of CSS
 	 */
-	private String css;
-	
 	public String getCss() {
 		return css;
 	}
@@ -80,122 +72,106 @@ public class NewsfeedVM {
 	public void setCss(String css) {
 		this.css = css;
 	}
+	// -------------------------------------------------------
+	
+	private AuthorBean currentUser;
 	
 	/**
-	 * Menu Group #1: FAVORITES 
+	 * Currently logged in user
 	 */
-	private ListModel<MenuItemBean> menu1;
-	
-	public ListModel<MenuItemBean> getMenu1() {
-		return menu1;
+	public AuthorBean getCurrentUser() {
+		return this.currentUser;
 	}
 	
-	public void setMenu1(ListModel<MenuItemBean> menu1) {
-		this.menu1 = menu1;
-	}
 	// -------------------------------------------------------
+	
+	private MenuGroupBean[] menuGroups;
 
 	/**
-	 * Menu Group #2: GROUPS
+	 * Menu items are grouped into categories.
 	 */
-	private ListModel<MenuItemBean> menu2;
-	
-	public ListModel<MenuItemBean> getMenu2() {
-		return menu2;
+	public MenuGroupBean[] getMenuGroups() {
+		return menuGroups;
 	}
-	
-	public void setMenu2(ListModel<MenuItemBean> menu2) {
-		this.menu2 = menu2;
-	}
-	// -------------------------------------------------------
 
-	/**
-	 * Menu Group #3: INTERESTS
-	 */
-	private ListModel<MenuItemBean> menu3;
-	
-	public ListModel<MenuItemBean> getMenu3() {
-		return menu3;
-	}
-	
-	public void setMenu3(ListModel<MenuItemBean> menu3) {
-		this.menu3 = menu3;
+	public void setMenuGroups(MenuGroupBean[] menuGroups) {
+		this.menuGroups = menuGroups;
 	}
 	// -------------------------------------------------------
 	
-	/**
-	 * Menu Group #4: Management
-	 */
-	private ListModel<MenuItemBean> menu4;
-	
-	public ListModel<MenuItemBean> getMenu4() {
-		return menu4;
+	public ListModel<String[]> getToolbarModel() {
+		return 	new ListModelList<String[]>(
+			new String[][] {
+				{ "Status",   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAANFJREFUeNpiZEhrYSADTAPis0A8lwkqADLlPx78CkmzHBD7AfFMIDZjgQoWEbDxHZTuBWIDIHYD4nwgvgAzgBNKswPxLxyG9CJZBKJTQAwmNEW4NHchaX4ExPUwCSYiAgwUPqVQ9msgdgbijUC8DiTAQkAzyGsVUPZ3IPYB4jtAbAzEKsQYIA31FgjHAfEpdAX4DGCGOt0WiG8C8RdsivAZ8BeI0wkFEBMDhYDqBggRoUcUWxj8hQbaWxIs/4Xsgj5coYwngEF6GBjJzM5wABBgALS1KzDd2YvyAAAAAElFTkSuQmCC" },
+				{ "Photo",    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJlJREFUeNpiZEhrYaAEMAHxfxLxXnQDSAVOyBwWKM1IpOb/SOxvQHyKiQLvcwKxIrIBh6EYGYSjOxkdsCCxv6PJiQLxNCC+BsT7cOjnRzbADYh5gLgLiH8BsToQCwGxDdQV+wi5IASIe4FYDou6amIMWAPFJAEWLNFDckokFZxCdwEjJXmBBUcqI8sL68nQvw/ZBUHkuAAgwADkuSHAjHyEIwAAAABJRU5ErkJggg==" },
+				{ "Check In", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAO5JREFUeNpi/P//PwMIMKa3MpAK/s+sZmDCIccPxL1AfA+kDoifAPFMIBZFV4jNAHsgvgrERUCsCBWTBuI0qLgTPgNANqyAagCBLJDvgLgASX41EEvgMqAFSfIvEE+HsqdD+SAgBMTtuAzwRmIzA3EOEHNCaWYkOVcYgwXNACE0/mQoZsClDt0FZ4mMwbO4DJhFpAELcBmwEojvENAMkl+My4BfQJxCwIACqDqcCekgEC/DoXkrFONNiSBQBsTv0MTeQRMWAzEGPMXilUQgfkSsASCwHojnQtlTgHgTNkUsBAIsF4jZgLgYlwKAAAMAbegrRQ3UKeAAAAAASUVORK5CYII=" }
+			}
+		);
 	}
 	
-	public void setMenu4(ListModel<MenuItemBean> menu4) {
-		this.menu4 = menu4;
-	}
 	// -------------------------------------------------------
 	
+	private ListModel<ContactBean> frequentContacts;
+
 	/**
 	 * Frequent Contacts
 	 */
-	private ListModel<ContactBean> frequentContacts;
-	
 	public ListModel<ContactBean> getFrequentContacts() {
-    	return frequentContacts;
-    }
+		return frequentContacts;
+	}
 
 	public void setFrequentContacts(ListModel<ContactBean> frequentContacts) {
-    	this.frequentContacts = frequentContacts;
-    }
+		this.frequentContacts = frequentContacts;
+	}
 	
+	private ListModel<ContactBean> otherContacts;
+
 	/**
 	 * Other Online Contacts
 	 */
-	private ListModel<ContactBean> otherContacts;
-	
 	public ListModel<ContactBean> getOtherContacts() {
-    	return otherContacts;
-    }
+		return otherContacts;
+	}
 
 	public void setOtherContacts(ListModel<ContactBean> otherContacts) {
-    	this.otherContacts = otherContacts;
-    }
+		this.otherContacts = otherContacts;
+	}
+
+	// -------------------------------------------------------
+
+	private PostBean currentPost = null;
 
 	/**
-	 * feedback target
+	 * Current post that the user is interested in getting feedback
 	 */
-	private Post currentPost = null;
-	
-	public Post getCurrentPost() {
+	public PostBean getCurrentPost() {
 		return currentPost;
 	}
 	
-	public void setCurrentPost(Post currentPost) {
+	public void setCurrentPost(PostBean currentPost) {
 		this.currentPost = currentPost;
 	}
 	// -------------------------------------------------------
 	
+	private String currentComment = null;
+
 	/**
 	 * Comment for current post 
 	 */
-	private String currentComment = null;
-	
 	public String getCurrentComment() {
-    	return currentComment;
-    }
+		return currentComment;
+	}
 	
 	public void setCurrentComment(String currentComment) {
-    	this.currentComment = currentComment;
-    }
+		this.currentComment = currentComment;
+	}
 	// -------------------------------------------------------
 	
+	private boolean modalShow = false;
+
 	/**
 	 * If true, the modal filter is shown.
 	 */
-	private boolean modalShow = false;
-	
 	public boolean isModalShow() {
 		return modalShow;
 	}
@@ -205,11 +181,11 @@ public class NewsfeedVM {
 	}
 	// -------------------------------------------------------
 	
+	private boolean menuOpen = false;
+
 	/**
 	 * If true, the menu panel is opened.
 	 */
-	private boolean menuOpen = false;
-	
 	public boolean isMenuOpen() {
 		return menuOpen;
 	}
@@ -219,11 +195,11 @@ public class NewsfeedVM {
 	}
 	// -------------------------------------------------------
 	
+	private boolean contactOpen = true;
+
 	/**
 	 * If true, the contact panel is opened
 	 */
-	private boolean contactOpen = true;
-	
 	public boolean isContactOpen() {
 		return contactOpen;
 	}
@@ -233,12 +209,12 @@ public class NewsfeedVM {
 	}
 	
 	// -------------------------------------------------------
-	
+
+	private boolean likeStatus = false;
+
 	/**
 	 * If true, the current post has been liked.
 	 */
-	private boolean likeStatus = false;
-
 	public boolean isLikeStatus() {
 		return likeStatus;
 	}
@@ -250,10 +226,9 @@ public class NewsfeedVM {
 
 	/**
 	 * Generate fake newsfeed posts
-	 * @return
 	 */
-	public List<Post> getPostModel(){
-		List<Post> result = new ArrayList<Post>();
+	public List<PostBean> getPostModel(){
+		List<PostBean> result = new ArrayList<PostBean>();
 		for (int i=0; i<10; i++){
 			result.add(FakeData.randomPost());
 		}
@@ -262,70 +237,82 @@ public class NewsfeedVM {
 
 	@Init
 	public void init() {
-		// Detect if client is mobile
+		// Detect if client is mobile (such as Android or iOS devices)
 		ServletRequest request = ServletFns.getCurrentRequest();
-		this.mobile = Servlets.getBrowser(request, "mobile") != null;
+		boolean mobile = Servlets.getBrowser(request, "mobile") != null;
 
 		// Set the default stylesheet
-		if (this.mobile) {
+		if (mobile) {
 			css = "css/tablet.css.dsp";
 		} else {
 			css = "css/desktop.css.dsp";
 			viewportWidth = "1366px";
 		}
 		
-		/**************************************************************************
-		 * Menuitems in the Sidebar
-		 **************************************************************************/
+		// -------------------------------------------------------------------------------
 		
-		// FAVORITES
-		menu1 = new ListModelArray<MenuItemBean>(
-			new MenuItemBean[] {
-				new MenuItemBean("images/items/icon_newsfeed.png", "News feed", 8),
-				new MenuItemBean("images/items/icon_messages.png", "Messages",  0),
-				new MenuItemBean("images/items/icon_nearby.png",   "Nearby",    5),
-				new MenuItemBean("images/items/icon_events.png",   "Events",    0),
-				new MenuItemBean("images/items/icon_notes.png",    "Notes",     0),
-				new MenuItemBean("images/items/icon_friends.png",  "Friends",   15)
-			}
-		);
+		currentUser = new AuthorBean("ZK Team", "images/avatars/zk.jpg");
 		
-		// GROUPS
-		menu2 = new ListModelArray<MenuItemBean>(
-			new MenuItemBean[] {
-				new MenuItemBean("images/items/icon_group1.png", "Training",    23),
-				new MenuItemBean("images/items/icon_group2.png", "Study Group", 0),
-				new MenuItemBean("images/items/icon_group3.png", "Research",    1)
-			}
-		);
-		
-		// INTERESTS
-		menu3 = new ListModelArray<MenuItemBean>(
-			new MenuItemBean[] {
-				new MenuItemBean("images/items/subscribe.png",  "Subscriptions", 0)
-			}
-		);
-		
-		// Management
-		menu4 = new ListModelArray<MenuItemBean>(
-			new MenuItemBean[] {
-				new MenuItemBean("images/items/helpCenter.png",  "Help Center",    0),
-				new MenuItemBean("images/items/settings.png",    "Settings",       0),
-				new MenuItemBean("",                             "Edit Favorites", 0)
-			}
-		);
+		// -------------------------------------------------------------------------------
+		// For generating categorized Menuitems in the Sidebar
+
+		menuGroups = new MenuGroupBean[] {
+			new MenuGroupBean(
+				"FAVORITES",
+				new ListModelArray<MenuItemBean>(
+					new MenuItemBean[] {
+						new MenuItemBean("images/items/icon_newsfeed.png", "News feed", 8),
+						new MenuItemBean("images/items/icon_messages.png", "Messages",  0),
+						new MenuItemBean("images/items/icon_nearby.png",   "Nearby",	5),
+						new MenuItemBean("images/items/icon_events.png",   "Events",	0),
+						new MenuItemBean("images/items/icon_notes.png",	   "Notes",		3),
+						new MenuItemBean("images/items/icon_photos.png",   "Gallery",   0),
+						new MenuItemBean("images/items/icon_friends.png",  "Friends",   15)
+					}
+				)
+			),
+			
+			new MenuGroupBean(
+				"GROUPS",
+				new ListModelArray<MenuItemBean>(
+					new MenuItemBean[] {
+						new MenuItemBean("images/items/icon_group1.png", "Training",	23),
+						new MenuItemBean("images/items/icon_group2.png", "Study Group", 0),
+						new MenuItemBean("images/items/icon_group3.png", "Research",	1)
+					}
+				)
+			),
+			
+			new MenuGroupBean(
+				"INTERESTS",
+				new ListModelArray<MenuItemBean>(
+					new MenuItemBean[] {
+						new MenuItemBean("images/items/subscribe.png",  "Subscriptions", 0)
+					}
+				)
+			),
+			
+			new MenuGroupBean(
+				null,
+				new ListModelArray<MenuItemBean>(
+					new MenuItemBean[] {
+						new MenuItemBean("images/items/helpCenter.png",  "Help Center",	   0),
+						new MenuItemBean("images/items/settings.png",	 "Settings",	   0),
+						new MenuItemBean("images/items/icon_status.png", "Edit Favorites", 0)
+					}
+				)
+			)
+		};
 		// -------------------------------------------------------------------------------
 
-		/**************************************************************************
-		 * Contacts in the Contact Panel
-		 **************************************************************************/
+		// Contacts in the Contact Panel
 
 		frequentContacts = new ListModelArray<ContactBean>(
 			new ContactBean[] {
 				new ContactBean("images/avatars/luffy.jpg",   "Monkey D. Luffy",   "mobile"),
-				new ContactBean("images/avatars/zoro.jpg",    "Roronoa Zoro",      "active"),
-				new ContactBean("images/avatars/nami.jpg",    "Nami",              ""),
-				new ContactBean("images/avatars/usopp.png",   "Usopp",             "active"),
+				new ContactBean("images/avatars/zoro.jpg",	  "Roronoa Zoro",	   "active"),
+				new ContactBean("images/avatars/nami.jpg",	  "Nami",			   ""),
+				new ContactBean("images/avatars/usopp.png",   "Usopp",			   "active"),
 				new ContactBean("images/avatars/sanji.png",   "Sanji",             ""),
 				new ContactBean("images/avatars/chopper.jpg", "Tony Tony Chopper", "mobile"),
 				new ContactBean("images/avatars/robin.png",   "Nico Robin",        "mobile"),
@@ -365,7 +352,7 @@ public class NewsfeedVM {
 	
 	@Command
 	@NotifyChange({"currentPost","actionName", "modalShow"})
-	public void feedback(@BindingParam("instance") Post post) {
+	public void feedback(@BindingParam("instance") PostBean post) {
 		currentPost = post;
 		modalShow = true;
 		
@@ -375,8 +362,8 @@ public class NewsfeedVM {
 	@Command
 	@NotifyChange({"currentPost","currentComment"})
 	public void addComment() {
-		Post comment = new Post();
-		comment.setAuthor(new Author("ZK Team", "images/avatars/zk.jpg"));
+		PostBean comment = new PostBean();
+		comment.setAuthor(currentUser);
 		comment.setContent(currentComment);
 		comment.setTime(new Date());
 		currentPost.getCommentList().add(comment);
@@ -386,14 +373,16 @@ public class NewsfeedVM {
 	@Command
 	@NotifyChange({"currentPost", "likeStatus"})
 	public void likePost() {
-		likeStatus = !likeStatus;
+		List<AuthorBean> likeList = currentPost.getLikeList();
+		likeStatus = likeList.contains(currentUser);
 		
 		if (likeStatus) {
-			currentPost.getLikeList().add(FakeData.randomAuthor());
+			likeList.remove(currentUser);
 		} else {
-			List<Author> likeList = currentPost.getLikeList();
-			likeList.remove(likeList.size()-1);
+			likeList.add(currentUser);
 		}
+		
+		likeStatus = !likeStatus;
 	}
 	
 	@Command
@@ -401,22 +390,21 @@ public class NewsfeedVM {
 	public void toggleMenu() {
 		menuOpen = !menuOpen;
 		
-		if (orient.equals("landscape"))
+		if (NewsfeedVM.isWideScreen(orient))
 			contactOpen = !menuOpen;
 	}
 	
 	@Command
 	@NotifyChange({"menuOpen", "contactOpen"})
 	public void contentSwipe(@BindingParam("dir") String direction) {
-		if (direction.equals("up") || direction.equals("down"))
+		if ("up".equals(direction) || "down".equals(direction))
 			return;
 		
-		menuOpen = direction.equals("right");
+		menuOpen = "right".equals(direction);
 		
-		if (orient.equals("landscape"))
+		if (NewsfeedVM.isWideScreen(orient))
 			contactOpen = !menuOpen;
 	}
-	
 	
 	@Command
 	@NotifyChange({"contactOpen", "viewportWidth"})
@@ -425,12 +413,10 @@ public class NewsfeedVM {
 		
 		this.orient = orient;
 		
-		if (orient.equals("portrait")) {
+		if ("portrait".equals(orient)) {
 			viewportWidth = "768px";
 			if (contactOpen) contactOpen = false;
-		}
-		
-		if (orient.equals("landscape")) {
+		} else {
 			viewportWidth = "1024px";
 			if (!menuOpen && !contactOpen) 	contactOpen = true;
 		}
@@ -439,20 +425,20 @@ public class NewsfeedVM {
 	@Command
 	public void showMessage(
 		@ContextParam(ContextType.COMPONENT) Component comp,
-		@BindingParam("pos")                 String    pos
+		@BindingParam("pos")				 String	   pos
 	) {
 		String msg = null;
 
 		if (comp instanceof Listbox) {
-    		Listitem item = ((Listbox) comp).getSelectedItem();
-    		
-    		if (item instanceof Contact)
-    			msg = ((Contact) item).getName();
-    		else if (item instanceof MenuItem)
-    			msg = ((MenuItem) item).getTitle();
-    			
-    		((Listbox) comp).setSelectedItem(null);
-    		comp = item;
+			Listitem item = ((Listbox) comp).getSelectedItem();
+
+			if (item instanceof Contact)
+				msg = ((Contact) item).getName();
+			else if (item instanceof MenuItem)
+				msg = ((MenuItem) item).getTitle();
+
+			((Listbox) comp).setSelectedItem(null);
+			comp = item;
 		} else if (comp instanceof Toolbarbutton) {
 			msg = ((Toolbarbutton) comp).getLabel();
 		} else

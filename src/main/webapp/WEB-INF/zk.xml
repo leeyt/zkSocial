@@ -3,6 +3,6 @@
 <zk>
 	<preference>
 		<name>org.zkoss.zk.ui.WebApp.name</name>
-		<value>zk Facebook</value>
+		<value>ZK Social</value>
 	</preference>
 </zk>
