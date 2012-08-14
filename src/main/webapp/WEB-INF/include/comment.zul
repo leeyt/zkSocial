@@ -3,21 +3,23 @@
 		<caption>
 			<button 
 				sclass="right"
-				label='@bind(vm.likeStatus ? "Unlike" : "Like")'
+				label='@load(vm.likeStatus ? "Unlike" : "Like")'
 				onClick='@command("likePost")' />
 		</caption>
+		
 		<vlayout children="@load(vm.currentPost.commentList)">
 			<template name="children" var="comment">
 				<separator spacing="2px" />
 				<hlayout sclass="z-valign-top">
 					<separator spacing="2px" />
+					
 					<image
-						width="24px"
-						height="24px"
+						sclass="icon"
 						src="@load(comment.author.avatar)" />
+						
 					<vlayout>
 						<label 
-							style="color: blue; font-weight: bold; font-size: 16px;" 
+							sclass="post-author" 
 							value="@load(comment.author.name)" />
 						<html content="@load(comment.content)" />
 						<label value="@load(comment.time)" />
@@ -30,7 +32,6 @@
 	<south>
 		<hlayout>
 			<textbox 
-				id="txtComment"
 				sclass="commentInput"
 				placeholder="Write a comment..." 
 				value='@bind(vm.currentComment)' />

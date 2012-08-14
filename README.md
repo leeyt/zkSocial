@@ -1,24 +1,11 @@
 ZK Social
+=========
 
-> This project aims to demonstrate new features introduced in ZK 6.5 targeting touch-capable devices.
+This project uses ZK to build a Facebook-like social platform. In this project, a few new features
+introduced in ZK 6.5 are utilized to produce UI interactions specific to touch-capable devices.
+
+* ZK Version: 6.5.0 EE and later
+* All avatar icons are borrowed from http://www.freeiconsweb.com/Free-Downloads.asp?id=864
 
 # [Download WAR file] (https://github.com/downloads/leeyt/zkSocial/zkSocial-6.5.0.FL.2012xxxx.war)
-___________________________________________________________________________
 
-Goal
-====
-* Responsive Web Design
-* Pure ZK component.
-* Server-side CSS switching
-
-Environment :
-* JDK 1.6
-* ZK 6.5 EE
-* Chrome, iPad, Android
-
-Version
-=======
-
-2012.08.xx
-----------
-Release for Demo.

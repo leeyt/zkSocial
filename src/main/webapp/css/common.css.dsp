@@ -15,6 +15,12 @@
 	${t:borderRadius('20px')}
 }
 
+.z-image.icon {
+	width: 24px;
+	height: 24px;
+	margin-left: 10px;
+}
+
 .menuPanel {
 	line-height: 18px;
 	font-size: 16px;
@@ -182,19 +188,22 @@
 }
 
 .z-caption button,
+.z-south button,
 .z-button-os {
 	font-size: 14px;
 	background: #008CB7;
 	color: white;
 	border: none;
 	border-radius: 2px;
+	/*
 	box-shadow: inset rgba(120,120,120,0.6) 0 0 2px 10px;
+	*/
 	padding: 3px 10px;
 	border: black ridge 1px;
 }
 
 .z-caption button:active {
-	box-shadow: inset rgba(0,0,0,0.6) 0 0 2px 10px;
+	background: #003744;
 }
 
 .left { 
@@ -243,4 +252,22 @@
 	${t:gradient('ver', '#D8D8D8; #FFFFFF')}
 }
 
+.post {
+	padding: 5px 5px 5px 5px;
+}
 
+.z-image.post-avatar {
+	margin-right: 10px;
+	width: 50px;
+	height: 50px;
+}
+
+.z-label.post-author {
+	color: blue; 
+	font-weight: bold; 
+	font-size: 16px;
+}
+
+.valign-middle {
+	vertical-align: center;
+}

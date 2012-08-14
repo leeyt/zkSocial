@@ -42,32 +42,14 @@
 	<popup id="sortPopup">
 		<window title="Sort Order" border="normal">
 			<radiogroup orient="vertical">
-				<radio label="Top Stories" checked="true">
-					<attribute name="onCheck">
-					<![CDATA[
-						Clients.showNotification(
-							"Sort by Top Stories", 
+				<radio label="Top Stories" checked="true"
+					onCheck='Clients.showNotification("Sort by Top Stories", 
 							Clients.NOTIFICATION_TYPE_WARNING, 
-							null, 
-							"middle_center", 
-							1000
-						);
-					]]>
-					</attribute> 
-				</radio>
-				<radio label="Most Recent">
-					<attribute name="onCheck">
-					<![CDATA[
-						Clients.showNotification(
-							"Sort by Most Recent", 
+							null, "middle_center", 1000);' />
+				<radio label="Most Recent"
+					onCheck='Clients.showNotification("Sort by Most Recent", 
 							Clients.NOTIFICATION_TYPE_WARNING, 
-							null, 
-							"middle_center", 
-							1000
-						);
-					]]>
-					</attribute> 
-				</radio> 
+							null, "middle_center", 1000);' />
 			</radiogroup>
 		</window>
 	</popup> 

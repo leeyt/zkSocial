@@ -1,52 +1,49 @@
 <zk>
-<separator spacing="5px" />
-<hlayout sclass="z-valign-top">
-	<separator orient="horizontal" spacing="5px" />
-	<image
-		width="50px"
-		height="50px"
-		src="@load(post.author.avatar)" />
-	<separator orient="horizontal" spacing="10px" />	
-	<vlayout>
-		<label 
-			style="color: blue; font-weight: bold; font-size: 16px;" 
-			value="@load(post.author.name)" />
+	<hlayout sclass="post">
+		<image
+			sclass="post-avatar"
+			src="@load(post.author.avatar)" />
+	
+		<vlayout spacing="0">
+			<label
+				sclass="post-author" 
+				value="@load(post.author.name)" />
+				
+			<html sclass="post" content="@load(post.content)" />
 			
-		<html sclass="post" content="@load(post.content)" />
-		
-		<label value="@load(post.time)" />
-		<hlayout>
-		    <!-- <LikeArea> -->
-			<div
-				sclass="like-area touchable" 
-				onClick='@command("feedback", instance=post)'>
-				<a>Like</a>
-				<label value="‧" />
-				<a>Comment</a>
-				
-				<separator 
-					orient="vertical" spacing="100px" if="${post.likeCount > 0 || post.commentCount > 0}" />
-				
-				<!-- Like Count -->
-				<span visible="@bind(post.likeCount > 0)">
-					<image
-						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAMCAYAAABr5z2BAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAMJJREFUeNpi/P//PwNjeisDAeAHxF1A/AuIHYD4HUyCiYEw4AfiRiDWBuI1QOyBLEmMAUVQjSCDYoH4OLIkCwHNKkCcCbVdC4hfA/F9XC44D8T/oXgXEEcB8V4gLoNqvAzEL4D4DBA/AeKl6C5QRGLbA/EpIPYE4mtQsY9AHARl8wDxAXxeYAbiGjxe+wLEbPgCkZmBSMDEQCGg2AB80TgTSs+FBigy4MFmACiabKDsI0A8C5oOQFF5E80ACViCAggwAJyDJK117s9tAAAAAElFTkSuQmCC" />
-					<label value="@bind(post.likeCount)" />
-				</span>
-				<!--  -->
-				
-				<!-- Comment Count -->
-				<span visible="@bind(post.commentCount > 0)">
-					<image
-						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAMCAYAAABr5z2BAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIZJREFUeNpiZEhrYQACVyBuBGJLBsLgFBDXA/EOEIcFKrgIiCUYiANmQLwaiAWA+C8TVJBYzTDAA8UMTAwUgqFtwF9kA66RqPkmEH9BjsYgIO6FxoYuELNBxb9AFSODF0BcBuOwIJnoA2WfhMY1SLMbEB8nNQzOEqsZlwEgTZ7EaAYBgAADAEJ0F5+E7gg/AAAAAElFTkSuQmCC" />
-					<label value="@bind(post.commentCount)" />
-				</span>
-				<!--  -->
-			</div>
-			<!-- </LikeArea -->
-		</hlayout>
-	</vlayout>
-</hlayout>
-<separator spacing="5px" />
-<separator bar="true" />
+			<label value="@load(post.time)" />
+			
+			<hlayout>
+			    <!-- <LikeArea> -->
+				<div
+					sclass="like-area touchable" 
+					onClick='@command("feedback", instance=post)'>
+					<a>Like</a>
+					<label value="‧" />
+					<a>Comment</a>
+					
+					<separator 
+						orient="vertical" spacing="100px" if="${post.likeCount > 0 || post.commentCount > 0}" />
+					
+					<!-- Like Count -->
+					<span visible="@bind(post.likeCount > 0)">
+						<image
+							src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAMCAYAAABr5z2BAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAMJJREFUeNpi/P//PwNjeisDAeAHxF1A/AuIHYD4HUyCiYEw4AfiRiDWBuI1QOyBLEmMAUVQjSCDYoH4OLIkCwHNKkCcCbVdC4hfA/F9XC44D8T/oXgXEEcB8V4gLoNqvAzEL4D4DBA/AeKl6C5QRGLbA/EpIPYE4mtQsY9AHARl8wDxAXxeYAbiGjxe+wLEbPgCkZmBSMDEQCGg2AB80TgTSs+FBigy4MFmACiabKDsI0A8C5oOQFF5E80ACViCAggwAJyDJK117s9tAAAAAElFTkSuQmCC" />
+						<label value="@bind(post.likeCount)" />
+					</span>
+					<!--  -->
+					
+					<!-- Comment Count -->
+					<span visible="@bind(post.commentCount > 0)">
+						<image
+							src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAMCAYAAABr5z2BAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIZJREFUeNpiZEhrYQACVyBuBGJLBsLgFBDXA/EOEIcFKrgIiCUYiANmQLwaiAWA+C8TVJBYzTDAA8UMTAwUgqFtwF9kA66RqPkmEH9BjsYgIO6FxoYuELNBxb9AFSODF0BcBuOwIJnoA2WfhMY1SLMbEB8nNQzOEqsZlwEgTZ7EaAYBgAADAEJ0F5+E7gg/AAAAAElFTkSuQmCC" />
+						<label value="@bind(post.commentCount)" />
+					</span>
+					<!--  -->
+				</div>
+				<!-- </LikeArea -->
+			</hlayout>
+		</vlayout>
+	</hlayout>
+	<separator bar="true" />
 </zk>

@@ -15,7 +15,6 @@ public class MenuGroupBean {
 	}
 	
 	public String getGroupName() {
-		System.out.println("Group name = " + groupName);
 		return groupName; 
 	}
 

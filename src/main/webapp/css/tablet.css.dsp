@@ -46,9 +46,22 @@
 /**************************************/
 /* Override default values for Tablet */
 .z-caption .z-toolbar a, 
-.z-caption .z-toolbar a:visited, 
+.z-caption .z-toolbar a:visited,
 .z-caption .z-toolbar a:hover {
 	color: black;
+}
+
+.z-button:active,
+.z-button-os:active {
+	background: #003744;
+}
+
+.z-button:focus,
+.z-button:hover,
+.z-button-os:focus,
+.z-button-os:hover {
+	background: #008CB7;
+	color: ${test};
 }
 
 .newsfeedPanel .z-center-header,

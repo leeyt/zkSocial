@@ -13,7 +13,7 @@
 		id="mainWindow"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('org.zkoss.demo.zkSocial.vm.NewsfeedVM')"
-		onOrientationChange='@command("changeOrientation", orient=event.orientation)'
+		onClientInfo='@command("updateOrientation", orient=event.orientation)'
 		height="100%" width="@load(vm.viewportWidth)">
 
 		<style src="@load(vm.css)" />
@@ -37,8 +37,8 @@
 				sclass="menuPanel"
 				autoscroll="true"
 				collapsible="true"
-				open="@load(vm.menuOpen)"
-				visible="@load(vm.menuOpen)"
+				open="@bind(vm.menuOpen)"
+				visible="@bind(vm.menuOpen)"
 				width="200px">
 				
 				<!-- Search Textbox -->
@@ -106,69 +106,52 @@
 						autoscroll="true"
 						visible="@bind(vm.contactOpen)"
 						width="200px">
-						<vlayout spacing="0">
+						<div>
 							<!-- Search Contacts -->
-							<hlayout hflex="min" height="37px" valign="middle">
+							<hlayout height="32px" sclass="valign-middle">
 						  		<textbox 
 						  			sclass="left search" 
 						  			placeholder="Search Friends"
-						  			width="140px" />
+						  			width="110px" />
 						  		<image
-						  			sclass="touchable"
-						  			src="images/items/settings.png"
-						  			width="24px" height="24px"
-						  			style="margin-left: 10px">
-						  			<attribute name="onClick">
-						  			<![CDATA[
-										Clients.showNotification(
-											"Go Offline", 
+						  			sclass="touchable icon right"
+						  			src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAqRJREFUWEftVd9LU3EUlx6kpxAR/4QoGHuMiBg+S4HEiBApkejBQIp8EA1JrKi0QleZzv1wzm333m33bnPdzTk3K9sWhPTUnxJ7kOP5rHvjbk3w7loPsQsfzs75ns/nfDj33t2OjvbV3kB7A9Y3YGeJPobNulQLCkm1UCl+2SeOpRbopii93N1jZJw7b+tOZj9X5fQupTgib1BEP3iWr975haXZpy8WHrISVn6a0T3zeG5Y/rBL8XSREJGjrp3bn710TYNn2YQoq6OZQpkyhQop6Z3KjcGbgzNP5ibkzfz32GaBdCBHHefo+8Upk5TIjFpagZovXY+mCgQo6kfKFb9SZqdc+63X9TPUcW48Y77TkgGQBTmnSskdMgvwLA+HwPTs/CUhkScziCjbB1OPnl84CQNdr994JiPyNjVA5fwio1OLyOt6XrlWJthAV6sm8MQ7xiemxwQl+yMU3yIdG9FM09WuS6ps7AMPfOhob9DxvYhKtsIPUDW1tUeCkqeNaPY3gpIKc39cbMxu7AMPfOhA7/jT8eBpQ4NShhrRf/Va07Wi3qwfpqBnykBAVFXGTwY14t6DyYFmYvfHpwaa9Ws6rb0R/kja4Qkm9jmSjkAkuccG8AE6oxlBtPnDiV1jn8bD/bd2uQPxEW8oRTr4XlNQTH4aHRvHv1wfIvIQ14197rXYkLXJGvvW7btXVtcTZARWrf8DIiI3nrsDiYOh4Tv9J2GgxxuSSysBhczCxzw2UPcVNW1o2Rse8YVTtLwWN40aj/mmhxoJfF+Hlnwx0pDjeJbhfOuRvhnqpOVO7Rx9NQ74lgyAzOKDjLqv2juP6OAaBtfw3h+7bByEfvAsDz9KgN+EzkW3UHWtioTI+am/NuwoYZdbVBdXBEL858PbA/+LDRwC163enotUjD0AAAAASUVORK5CYII="
+						  			style="margin-left: 10px"
+						  			onClick='Clients.showNotification("Go Offline", 
 											Clients.NOTIFICATION_TYPE_WARNING, 
-											self, 
-											"start_center", 
-											1000
-										);
-						  			]]>
-						  			</attribute>
-						  		</image>
+											self, "start_center", 2000);' />
 						  	</hlayout>
 						  	<!--  -->
-						  	
-						  	<!-- Frequent Contacts  -->
-						  	<listbox
-						  		ca:data-scrollable="false" 
-						  		model="@load(vm.frequentContacts)"
-						  		onSelect='@command("showMessage", pos="start_center")'>
-						  		<template name="model" var="contact">
-						  			<Contact
-						  				picture="${contact.picture}"
-						  				name="${contact.name}"
-						  				status="${contact.status}" />
-						  		</template>
-						  	</listbox>
-						  	<!--  -->
-
-						  	<!-- Other Online Contacts -->
-						  	<listbox
-						  		ca:data-scrollable="false" 
-						  		model="@load(vm.otherContacts)"
-						  		onSelect='@command("showMessage", pos="start_center")'>
-						  		<listhead>
-						  			<listheader label="More Online Contacts (12)" />
-						  		</listhead>
-						  		<template name="model" var="contact">
-						  			<Contact
-						  				picture="${contact.picture}"
-						  				name="${contact.name}"
-						  				status="${contact.status}" />
-						  		</template>
-						  	</listbox>
-							<!--  -->
-						 </vlayout>
+						
+							<!-- Categorized Contacts -->
+							<vlayout spacing="0" children="@load(vm.contactGroups)">
+								<template name="children" var="contactGroup">
+								  	<listbox
+								  		ca:data-scrollable="false" 
+								  		model="${contactGroup.contactList}"
+								  		onSelect='@command("showMessage", pos="start_center")'>
+								  		<listhead>
+								  			<listheader label="${contactGroup.groupStatus}" />
+								  		</listhead>
+								  		<template name="model">
+								  			<Contact
+								  				picture="${each.picture}"
+								  				name="${each.name}"
+								  				status="${each.status}" />
+								  		</template>
+								  	</listbox>
+								</template>
+							 </vlayout>
+							 <!--  -->
+						 </div>
 					</east>
 					<!--  -->
 				</borderlayout>
 				<!--  -->
 			</center>
+			<!--  -->
 		</borderlayout>
+		<!--  -->
 	</window>
+	<!--  -->
 </zk>
