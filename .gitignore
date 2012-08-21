@@ -1,0 +1,7 @@
+/assembly
+/target
+.project
+.classpath
+.settings/*.prefs
+.settings/*.component
+.settings/*.xml
