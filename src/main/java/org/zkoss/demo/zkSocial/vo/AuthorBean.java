@@ -1,4 +1,4 @@
-package org.zkoss.demo.zkSocial.vo;
+package org.zkoss.demo.zksocial.vo;
 
 // Represent poster of news or commenter on posts
 public class AuthorBean {

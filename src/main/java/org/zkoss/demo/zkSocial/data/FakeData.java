@@ -1,11 +1,11 @@
-package org.zkoss.demo.zkSocial.data;
+package org.zkoss.demo.zksocial.data;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import org.zkoss.demo.zkSocial.vo.AuthorBean;
-import org.zkoss.demo.zkSocial.vo.PostBean;
+import org.zkoss.demo.zksocial.vo.AuthorBean;
+import org.zkoss.demo.zksocial.vo.PostBean;
 
 public class FakeData {
 	// Used to randomize data

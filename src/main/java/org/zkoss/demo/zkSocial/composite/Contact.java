@@ -1,4 +1,4 @@
-package org.zkoss.demo.zkSocial.composite;
+package org.zkoss.demo.zksocial.composite;
 
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.IdSpace;

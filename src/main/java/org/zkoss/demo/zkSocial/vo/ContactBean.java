@@ -1,4 +1,4 @@
-package org.zkoss.demo.zkSocial.vo;
+package org.zkoss.demo.zksocial.vo;
 
 public class ContactBean {
 	private String picture;

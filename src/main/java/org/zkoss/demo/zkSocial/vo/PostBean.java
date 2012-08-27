@@ -1,4 +1,4 @@
-package org.zkoss.demo.zkSocial.vo;
+package org.zkoss.demo.zksocial.vo;
 
 import java.util.ArrayList;
 import java.util.Date;
