@@ -14,12 +14,8 @@
 	}
 	
 	.z-popup.feedback .z-html p {
-		max-width: 250px;
+		max-width: 200px;
 		font-size: 14px;
-	}
-
-	.z-textbox.commentInput {
-		width: 220px;
 	}
 }
 
@@ -37,9 +33,39 @@
 		max-width: 180px;
 		font-size: 14px;
 	}
+}
 
-	.z-textbox.commentInput {
-		width: 150px;
+@media screen and (max-width: 480px) {
+	.newsfeedPanel .z-html.post p {
+		max-width: 350px;
+	}
+	
+	.z-notification .z-notification-cl,
+	.z-notification .z-notification-cnt {
+		width: 100px;
+		height: 50px;
+	}
+	
+	.contentPanel .pageTitle {
+		display: none;
+	}
+
+	.z-popup.feedback .z-html p {
+		font-size: 10px;
+	}
+}
+
+@media screen and (max-width: 320px) {
+	.newsfeedPanel .z-html.post p {
+		max-width: 200px;
+	}
+	
+	.contentPanel .pageTitle {
+		display: none;
+	}
+	
+	.like-area .z-separator-ver {
+		display: none;
 	}
 }
 
