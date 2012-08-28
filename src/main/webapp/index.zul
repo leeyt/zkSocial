@@ -7,7 +7,9 @@
 	class="org.zkoss.demo.zksocial.composite.Contact" ?>
 
 <zk xmlns:ca="client/attribute">
-	<script type="text/javascript">
+	<script 
+		type="text/javascript"
+	 	if='${execution.serverName == "www.zkoss.org" or execution.serverName == "www.potix.com"}'>
 	<![CDATA[
 		var _gaq = _gaq || [];
 		_gaq.push(['_setAccount', 'UA-34371271-1']);
