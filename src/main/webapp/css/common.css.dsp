@@ -252,6 +252,10 @@
 	${t:gradient('ver', '#D8D8D8; #FFFFFF')}
 }
 
+.z-textbox.commentInput {
+	width: 180px;
+}
+
 .post {
 	padding: 5px 5px 5px 5px;
 }

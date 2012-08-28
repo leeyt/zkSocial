@@ -180,6 +180,7 @@ public class NewsfeedVM {
 	// -------------------------------------------------------
 	
 	private boolean contactOpen = true;
+	private boolean hideContact = false;
 
 	/**
 	 * If true, the contact panel is opened
@@ -411,6 +412,8 @@ public class NewsfeedVM {
 		
 		if (NewsfeedVM.isWideScreen(orient))
 			contactOpen = !menuOpen;
+		
+		if (hideContact) contactOpen = false;
 	}
 	
 	@Command
@@ -423,23 +426,36 @@ public class NewsfeedVM {
 		
 		if (NewsfeedVM.isWideScreen(orient))
 			contactOpen = !menuOpen;
+		
+		if (hideContact) contactOpen = false;
 	}
 	
 	@Command
 	@NotifyChange({"contactOpen", "viewportWidth"})
-	public void updateOrientation(@BindingParam("orient") String orient) {
+	public void updateDeviceStatus(
+			@BindingParam("orient") String orient,
+			@BindingParam("width")  int    width) {
+		if (!mobile && width > 1366) {
+			viewportWidth = "1366px";
+		} else {
+			viewportWidth = width + "px";
+		}
+		
 		if (mobile && !this.orient.equals(orient)) {
 			this.orient = orient;
 			
 			Clients.showNotification(orient, Clients.NOTIFICATION_TYPE_WARNING, null, "middle_center", 2000);
 			
 			if ("portrait".equals(orient)) {
-				viewportWidth = "768px";
 				if (contactOpen) contactOpen = false;
 			} else {
-				viewportWidth = "1024px";
 				if (!menuOpen && !contactOpen) 	contactOpen = true;
 			}
+		}
+		
+		if (width < 700) {
+			hideContact = true;
+			contactOpen = false;
 		}
 	}
 	

@@ -20,6 +20,3 @@
 	max-width: 470px;
 }
 
-.z-textbox.commentInput {
-	width: 430px;
-}

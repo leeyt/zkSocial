@@ -30,7 +30,7 @@
 		id="mainWindow"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('org.zkoss.demo.zksocial.vm.NewsfeedVM')"
-		onClientInfo='@command("updateOrientation", orient=event.orientation)'
+		onClientInfo='@command("updateDeviceStatus", orient=event.orientation, width=event.desktopWidth)'
 		height="100%" width="@load(vm.viewportWidth)">
 
 		<style src="@load(vm.css)" />
@@ -106,7 +106,7 @@
 		
 							<popup 
 								id="feedbackPopup"
-								width="30%"
+								width="250px"
 								height="100%"
 								sclass="feedback"
 								onOpen='@command("hideModal")' >

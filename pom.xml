@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.zkoss</groupId>
-	<artifactId>zkSocial</artifactId>
+	<artifactId>zksocial</artifactId>
 	<version>1.0</version>
 	<properties>
 		<zk.version>6.5.0.FL.20120824</zk.version>
