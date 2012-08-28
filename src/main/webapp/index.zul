@@ -4,15 +4,32 @@
 	
 <?component
 	name="Contact"
-	class="org.zkoss.demo.zkSocial.composite.Contact" ?>
+	class="org.zkoss.demo.zksocial.composite.Contact" ?>
 
 <zk xmlns:ca="client/attribute">
+	<script type="text/javascript">
+	<![CDATA[
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-34371271-1']);
+		_gaq.push(['_trackPageview']);
+		
+		(function() {
+		  var ga = document.createElement('script'); 
+		  ga.type = 'text/javascript'; 
+		  ga.async = true;
+		  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + 
+				  '.google-analytics.com/ga.js';
+		  var s = document.getElementsByTagName('script')[0]; 
+		  s.parentNode.insertBefore(ga, s);
+		})();
+	]]>
+	</script>
 
 	<!-- Main Window -->
 	<window
 		id="mainWindow"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('org.zkoss.demo.zkSocial.vm.NewsfeedVM')"
+		viewModel="@id('vm') @init('org.zkoss.demo.zksocial.vm.NewsfeedVM')"
 		onClientInfo='@command("updateOrientation", orient=event.orientation)'
 		height="100%" width="@load(vm.viewportWidth)">
 

@@ -1,9 +1,9 @@
 <?component
 	name="MenuItem"
-	class="org.zkoss.demo.zkSocial.composite.MenuItem" ?>
+	class="org.zkoss.demo.zksocial.composite.MenuItem" ?>
 <?component
 	name="Contact"
-	class="org.zkoss.demo.zkSocial.composite.Contact" ?>
+	class="org.zkoss.demo.zksocial.composite.Contact" ?>
 
 <zk xmlns:ca="client/attribute">
 	
