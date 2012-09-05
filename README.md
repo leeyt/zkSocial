@@ -10,4 +10,4 @@ for more information about the demo app.
 * ZK Version: 6.5.0 EE and later
 * All avatar icons are borrowed from http://www.freeiconsweb.com/Free-Downloads.asp?id=864
 
-[Download WAR file] (https://github.com/leeyt/zkSocial/downloads/zkSocial-6.5.0.FL.20120810.war)
+[Download WAR file] (https://github.com/leeyt/zkSocial/downloads/zkSocial-6.5.0.FL.20120904.war)

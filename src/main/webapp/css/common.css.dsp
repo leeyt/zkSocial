@@ -1,7 +1,7 @@
 <%@ taglib prefix="t" uri="http://www.zkoss.org/dsp/web/theme" %>
 
 .z-page {
-  font-family: 'Lucida Grande';
+  font-family: 'Helvetica';
 }
 
 /* Customize Search Textbox */
@@ -51,7 +51,7 @@
 }
 
 .menuPanel .z-listhead.menu-category {
-	text-shadow: 0 1px 0 rgba(255, 255, 255, .6);
+	text-shadow: 1px 1px 1px black;
 	vertical-align: middle;
 	
 	${t:gradient('ver', '#434B5C; #394152')}
