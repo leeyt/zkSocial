@@ -219,11 +219,12 @@ public class NewsfeedVM {
 		}
 		return result;
 	}
+	
+	private ServletRequest request = ServletFns.getCurrentRequest();
 
 	@Init
 	public void init() {
 		// Detect if client is mobile (such as Android or iOS devices)
-		ServletRequest request = ServletFns.getCurrentRequest();
 		mobile = Servlets.getBrowser(request, "mobile") != null;
 		
 		// Set the default stylesheet
@@ -349,6 +350,11 @@ public class NewsfeedVM {
 	
 	@AfterCompose
 	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
+		Double ie = Servlets.getBrowser(request, "ie");
+		if (ie != null && ie < 8.0) {
+			Clients.showNotification("This demo does not support IE6/7", true);
+		}
+		
 		Selectors.wireComponents(view, this, false);
 	}
 	

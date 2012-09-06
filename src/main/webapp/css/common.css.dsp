@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://www.zkoss.org/dsp/web/core" %>
 <%@ taglib prefix="t" uri="http://www.zkoss.org/dsp/web/theme" %>
 
 .z-page {
@@ -55,6 +56,16 @@
 	vertical-align: middle;
 	
 	${t:gradient('ver', '#434B5C; #394152')}
+
+	<c:if test="${zk.ie == 9}">
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPgo8bGluZWFyR3JhZGllbnQgaWQ9Imc4NTMiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+CjxzdG9wIHN0b3AtY29sb3I9IiM0MzRCNUMiIG9mZnNldD0iMCIvPjxzdG9wIHN0b3AtY29sb3I9IiMzOTQxNTIiIG9mZnNldD0iMSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2c4NTMpIiAvPgo8L3N2Zz4=);
+	</c:if>
+
+	<c:if test="${zk.ie == 8}">
+	background: #434B5C;
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#434b5c',endColorstr='#4477a1')";
+	</c:if>
+	
 	${t:boxShadow('inset 0 1px 0 rgba(255, 255, 255, .08)')}
 }
 

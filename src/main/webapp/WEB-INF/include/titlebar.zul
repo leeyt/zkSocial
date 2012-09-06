@@ -29,28 +29,4 @@
 		sclass="left pageTitle"
 		value="News Feed" />
 	<!--  -->
-	
-	<!-- Button to display news-sorting options -->
-	<button
-		id="btnAction" 
-		sclass="right"
-		label="Sort" 
-		popup="sortPopup" />
-	<!--  -->
-	
-	<!-- Show the news-sorting options  -->
-	<popup id="sortPopup">
-		<window title="Sort Order" border="normal">
-			<radiogroup orient="vertical">
-				<radio label="Top Stories" checked="true"
-					onCheck='Clients.showNotification("Sort by Top Stories", 
-							Clients.NOTIFICATION_TYPE_WARNING, 
-							null, "middle_center", 1000);' />
-				<radio label="Most Recent"
-					onCheck='Clients.showNotification("Sort by Most Recent", 
-							Clients.NOTIFICATION_TYPE_WARNING, 
-							null, "middle_center", 1000);' />
-			</radiogroup>
-		</window>
-	</popup> 
 </zk>
