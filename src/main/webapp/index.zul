@@ -33,7 +33,7 @@
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('org.zkoss.demo.zksocial.vm.NewsfeedVM')"
 		onClientInfo='@command("updateDeviceStatus", orient=event.orientation, width=event.desktopWidth)'
-		height="100%" width="@load(vm.viewportWidth)">
+		height="100%" width="100%">
 
 		<style src="@load(vm.css)" />
 			
@@ -51,20 +51,22 @@
 		<!-- Divide the main layout into Menu Panel and Content Panel -->
 		<borderlayout
 			animationDisabled="true">
+			
 			<!-- Menu Panel -->
 			<west
 				sclass="menuPanel"
+				ca:data-swipeable="true"
 				autoscroll="true"
 				collapsible="true"
 				open="@bind(vm.menuOpen)"
-				visible="@bind(vm.menuOpen)"
-				width="200px">
+				visible="@bind(vm.menuOpen)">
 				
-				<!-- Search Textbox -->
+				<!-- Provide a way to access zkdemo -->
 				<caption>
-					<textbox 
-						sclass="left search" 
-						placeholder="Search" />
+					<button
+						mold="os"
+						label="Back to zkdemo"
+						href="../zkdemo" />
 				</caption>
 				<!-- -->
 				
@@ -109,7 +111,7 @@
 							<popup 
 								id="feedbackPopup"
 								width="250px"
-								height="100%"
+								height="50%"
 								sclass="feedback"
 								onOpen='@command("hideModal")' >
 								<include src="/WEB-INF/include/comment.zul"/>
@@ -124,24 +126,8 @@
 						id="contactPanel" 
 						autoscroll="true"
 						visible="@bind(vm.contactOpen)"
-						width="200px">
+						width="256px">
 						<div>
-							<!-- Search Contacts -->
-							<hlayout height="32px" sclass="valign-middle">
-						  		<textbox 
-						  			sclass="left search" 
-						  			placeholder="Search Friends"
-						  			width="110px" />
-						  		<image
-						  			sclass="touchable icon right"
-						  			src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAqRJREFUWEftVd9LU3EUlx6kpxAR/4QoGHuMiBg+S4HEiBApkejBQIp8EA1JrKi0QleZzv1wzm333m33bnPdzTk3K9sWhPTUnxJ7kOP5rHvjbk3w7loPsQsfzs75ns/nfDj33t2OjvbV3kB7A9Y3YGeJPobNulQLCkm1UCl+2SeOpRbopii93N1jZJw7b+tOZj9X5fQupTgib1BEP3iWr975haXZpy8WHrISVn6a0T3zeG5Y/rBL8XSREJGjrp3bn710TYNn2YQoq6OZQpkyhQop6Z3KjcGbgzNP5ibkzfz32GaBdCBHHefo+8Upk5TIjFpagZovXY+mCgQo6kfKFb9SZqdc+63X9TPUcW48Y77TkgGQBTmnSskdMgvwLA+HwPTs/CUhkScziCjbB1OPnl84CQNdr994JiPyNjVA5fwio1OLyOt6XrlWJthAV6sm8MQ7xiemxwQl+yMU3yIdG9FM09WuS6ps7AMPfOhob9DxvYhKtsIPUDW1tUeCkqeNaPY3gpIKc39cbMxu7AMPfOhA7/jT8eBpQ4NShhrRf/Va07Wi3qwfpqBnykBAVFXGTwY14t6DyYFmYvfHpwaa9Ws6rb0R/kja4Qkm9jmSjkAkuccG8AE6oxlBtPnDiV1jn8bD/bd2uQPxEW8oRTr4XlNQTH4aHRvHv1wfIvIQ14197rXYkLXJGvvW7btXVtcTZARWrf8DIiI3nrsDiYOh4Tv9J2GgxxuSSysBhczCxzw2UPcVNW1o2Rse8YVTtLwWN40aj/mmhxoJfF+Hlnwx0pDjeJbhfOuRvhnqpOVO7Rx9NQ74lgyAzOKDjLqv2juP6OAaBtfw3h+7bByEfvAsDz9KgN+EzkW3UHWtioTI+am/NuwoYZdbVBdXBEL858PbA/+LDRwC163enotUjD0AAAAASUVORK5CYII="
-						  			style="margin-left: 10px"
-						  			onClick='Clients.showNotification("Go Offline", 
-											Clients.NOTIFICATION_TYPE_WARNING, 
-											self, "start_center", 2000);' />
-						  	</hlayout>
-						  	<!--  -->
-						
 							<!-- Categorized Contacts -->
 							<vlayout spacing="0" children="@load(vm.contactGroups)">
 								<template name="children" var="contactGroup">

@@ -3,68 +3,72 @@
 
 <c:include page="common.css.dsp" />
 
+.z-image.icon {
+	width: 32px;
+	height: 32px;
+}
+
+.touchable {
+  	cursor: pointer;
+}
+
+.z-west-header, .z-center-header, .z-east-header
+.like-area {
+	height: 48px;
+}
+
+.menuPanel .z-west-body {
+	background: #32394A;
+}
+
+.menuPanel .z-west-capcnt {
+	margin: 10px 10px;
+}
+
+.contentPanel .z-center-capcnt {
+	margin: 10px 10px;
+}
+
+.like-area tr {
+	vertical-align: middle;
+}
+
+.comment .z-center-header {
+	height: 40px;	
+}
+
+.comment .z-center-body {
+	background-color: #ffffff;
+}
+
+
 /* iPad Landscape Orientation */
 @media screen and (orientation: landscape) {
-	.newsfeedPanel .z-html.post p {
-		max-width: 720px;
-	}
-	
-	.contentPanel .pageTitle {
-		width: 550px;
-	}
-	
-	.z-popup.feedback .z-html p {
-		max-width: 200px;
-		font-size: 14px;
-	}
 }
 
 /* iPad Portrait Orientation */
 @media screen and (orientation: portrait) {
-	.newsfeedPanel .z-html.post p {
-		max-width: 650px;
-	}
-	
-	.contentPanel .pageTitle {
-		width: 300px;
-	}
-	
-	.z-popup.feedback .z-html p {
-		max-width: 180px;
-		font-size: 14px;
-	}
 }
 
 @media screen and (max-width: 480px) {
-	.newsfeedPanel .z-html.post p {
-		max-width: 350px;
-	}
-	
 	.z-notification .z-notification-cl,
 	.z-notification .z-notification-cnt {
 		width: 100px;
 		height: 50px;
 	}
 	
-	.contentPanel .pageTitle {
-		display: none;
-	}
-
 	.z-popup.feedback .z-html p {
 		font-size: 10px;
 	}
 }
 
 @media screen and (max-width: 320px) {
-	.newsfeedPanel .z-html.post p {
-		max-width: 200px;
+	
+	.menuPanel .z-borderlayout-icon {
+		display: inline;
 	}
 	
-	.contentPanel .pageTitle {
-		display: none;
-	}
-	
-	.like-area .z-separator-ver {
+	.menuPanel .z-west-header .z-button {
 		display: none;
 	}
 }

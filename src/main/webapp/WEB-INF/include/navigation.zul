@@ -6,13 +6,12 @@
 	class="org.zkoss.demo.zksocial.composite.Contact" ?>
 
 <zk xmlns:ca="client/attribute">
-	
 	<!-- Sidebar -->
 	<div>
 		<!-- Current User -->
 		<listbox
 			ca:data-scrollable="false"
-			width="200px"
+			width="320px"
 			onSelect='@command("showMessage", pos="end_center")'>
 			<Contact
 				picture="@load(vm.currentUser.avatar)"
@@ -29,7 +28,7 @@
 			<template name="children" var="menuGroup">
 				<listbox 
 					ca:data-scrollable="false"
-					width="200px"
+					width="320px"
 					model="${menuGroup.menuItems}"
 					onSelect='@command("showMessage", pos="end_center")'>
 					<listhead sclass="menu-category">

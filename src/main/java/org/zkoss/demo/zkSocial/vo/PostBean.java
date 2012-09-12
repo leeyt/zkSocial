@@ -12,10 +12,17 @@ public class PostBean {
 	// Content of the post
 	private String content;
 
+	// Date/time of the post
 	private Date time;
 
+	// List of authors who liked this post
 	private List<AuthorBean> likeList	 = new ArrayList<AuthorBean>();
+	
+	// List of comments on this post
 	private List<PostBean>   commentList = new ArrayList<PostBean>();
+	
+	// Is this post liked by the current user?
+	private boolean liked = false;
 	
 	public PostBean() {
 	}
@@ -50,6 +57,14 @@ public class PostBean {
 
 	public void setLikeList(List<AuthorBean> likeList) {
 		this.likeList = likeList;
+	}
+	
+	public boolean isLiked() {
+		return this.liked;
+	}
+	
+	public void setLiked(boolean liked) {
+		this.liked = liked;
 	}
 
 	public List<PostBean> getCommentList() {

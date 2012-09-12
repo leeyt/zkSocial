@@ -1,6 +1,5 @@
 package org.zkoss.demo.zksocial.vm;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +27,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Div;
 import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelArray;
 import org.zkoss.zul.ListModelList;
@@ -35,14 +35,11 @@ import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Popup;
 import org.zkoss.zul.Toolbarbutton;
+import org.zkoss.zul.Window;
 
 public class NewsfeedVM {
 	@Wire 
 	private Popup feedbackPopup;
-	
-	private static boolean isWideScreen(String orient) {
-		return "landscape".equals(orient);
-	}
 	
 	private boolean mobile;
 	
@@ -50,17 +47,6 @@ public class NewsfeedVM {
 	// Changed when orientation change is detected.
 	private String orient = "landscape";
 	
-	// -------------------------------------------------------
-	
-	private String viewportWidth;
-
-	public String getViewportWidth() {
-		return viewportWidth;
-	}
-	
-	public void setViewportWidth(String viewportWidth) {
-		this.viewportWidth = viewportWidth;
-	}
 	// -------------------------------------------------------
 	
 	private String css;
@@ -213,11 +199,7 @@ public class NewsfeedVM {
 	 * Generate fake newsfeed posts
 	 */
 	public List<PostBean> getPostModel(){
-		List<PostBean> result = new ArrayList<PostBean>();
-		for (int i=0; i<10; i++){
-			result.add(FakeData.randomPost());
-		}
-		return result;
+		return FakeData.getPosts();
 	}
 	
 	private ServletRequest request = ServletFns.getCurrentRequest();
@@ -232,7 +214,6 @@ public class NewsfeedVM {
 			css = "css/tablet.css.dsp";
 		} else {
 			css = "css/desktop.css.dsp";
-			viewportWidth = "1366px";
 		}
 		
 		// -------------------------------------------------------------------------------
@@ -294,14 +275,11 @@ public class NewsfeedVM {
 				new ListModelArray<MenuItemBean>(
 					new MenuItemBean[] {
 						new MenuItemBean(
-								"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAA2hJREFUWEftll1IU2EYx0VEvBAzr0rRDMQLkSLwIoLAkhRMooII8iaFgsy+hEgiDdMsHSPn/NicOvehZ9Mz5zb37Ta3tXSSDZHoQrwIiejCi5AY0sXb88hO5Gk7O0e99MAPDu/7f/7Pc573OWdLSTm8Djtw2AGBHfCFPmUB9YARiAAkxmpsDfeyBNoml/tCy+lAq/f98k+nL0xm3SFidgaJ0ebfAe9xDfdQA9o2ICO5Mw8FGBYAEZtnAZIFyLTVzwlqbHMLxBtcXsVYHikSSzzB5QLX/NLGjD1ADLPzgsAYjEWPPRXhCXxMd3kXI/jEtMX3H6NaY0Qq11iQIRUdnDR5omwdxoLHCnoJLsLlC7eiwZTZuwtq2rVZd6fxIRieAopjlJ4+U1YDRa2w9TtF+MLtggpw+5cyzY7AFjwVYfPgSXMTmGWjIehKgMKYeVpFZXWlzuiOsmNMDv8W6Pi/HVZ3qEEPyXUzc7tQUuZ1SJaDCZ3z4Vt2GEy7d5HAfX2siPSBUZ2HHYde8JY08O6Czug0UUY3YTMwQpkYE9ri9TD747RVwawr1DQVL1Y/43byL2DavTFhcBE2BhhGh2dxBzxr3NdOOaKNj5trGPMJg+NzvFjK4PzGuwAw2B6nnSQZKp1189qNWmx/JprDkdTrjXNx49CTdwGaKcc2QLhQT9p/36ytu80kt859aMaJ54jhX8Cw1vRdpbcRLsR9SjuTfNYVuohHwqVHT94d6FfoQkrKSrjolWv/Dp6KMrcl00tkWjfvAl697W0fGbcQLnDQTPC5RXDqk+k7uvv5f4zKK6qK5SpjVKExkUT0DlFrr0WDFkQiG//CpUWvquqrJbw7AMK0lo4epVw9QxLRKZYpmU9xW5dUyqVt7ZSo0FNIASm5eflFPYPaNdnYNImHZFAzyBj2DKi6EunQ43hePv5mCL5SL1y6fEUip34MKA2EjUxJ+6fMnruIbIx2xtNgLHpA5lTB2WMBGefLK6+L+zRr/SM0+ReF2kTU8KoiwzAr7H1xv2YdY8Fn3/+MMrKP5px9+uKNUjJE/ZIOTxIuUPPsZbfmSHbOuYNIznQOW1h44mRR5b1Hz0XtInlQJFV97VVMEgTvYS10v6nlHWpQu5+2cx0XTvIxoBQoA8pj4D2u5Qqe9r0Ox2HcQXTgD6iSQ7+NIwcpAAAAAElFTkSuQmCC",
+								"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAg5JREFUeNqklV9EQ1Ecx9cf0VOMMUYPvYyIEXuIu4f1MmpsJqWn3hJRIvaQHmI2MopI9NBTj6X00Mu4+0PGItLDXnoYY0/jEmNq6/tbv8txd++5p/rxca9zf7/vOef3+51zR0qlkuc/pmma9PuoS7wXbIE7UAOfTI3HtsrlslcmMFIsFu3GJ8EOSIMpl0UYIAdOI5FIR2UHfqCDrIK4h33IV0e6/UMT9Pt9j0AAVEHYMq4CxVSRkYDTBBPgBkz/QdyEYm90XZ8wJxinD2x7ICxJxRV4Ah+AVrkBZm38wqyVGxS5UCiYeXznrrFaFyyCimV8DJyAbZuYNpiJRqOGmaIl4HXY9hGogCB46//YAxgDu+DVJoa01sUarErySrWZB3kwKywoBL7As0NcbFCDXq9Hz6Ak94eMaHR4Xvh9ziFuXiyy/xe3wz1Y4drkTSEb81m7SMWo0GssnuVucbKuOEFL8dSegg4Lp118m2IN6i51MK3Fz6SCb13solvFk7oPLiQtLfJoneBDIegYbIKiix9pXYsTGCCjMEGQz4TPxS8Tj8cNaxdRAVdBSJLXS4Xcv7DW0GVH3bEMqnyZ/cWoc5YTiUTH6X/QBAuS4y+DYhYg3pT9cIgG0MAB18ZN2GBfLZlMNqxbcjrJtMUMOAd0K8Y4bSEhz7RSasXrVCrVdsrZuEtOKfCMsTWISwW+BRgAOqXRoo+2QCAAAAAASUVORK5CYII=",
 								"Help Center",	  0),
 						new MenuItemBean(
-								"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAqRJREFUWEftVd9LU3EUlx6kpxAR/4QoGHuMiBg+S4HEiBApkejBQIp8EA1JrKi0QleZzv1wzm333m33bnPdzTk3K9sWhPTUnxJ7kOP5rHvjbk3w7loPsQsfzs75ns/nfDj33t2OjvbV3kB7A9Y3YGeJPobNulQLCkm1UCl+2SeOpRbopii93N1jZJw7b+tOZj9X5fQupTgib1BEP3iWr975haXZpy8WHrISVn6a0T3zeG5Y/rBL8XSREJGjrp3bn710TYNn2YQoq6OZQpkyhQop6Z3KjcGbgzNP5ibkzfz32GaBdCBHHefo+8Upk5TIjFpagZovXY+mCgQo6kfKFb9SZqdc+63X9TPUcW48Y77TkgGQBTmnSskdMgvwLA+HwPTs/CUhkScziCjbB1OPnl84CQNdr994JiPyNjVA5fwio1OLyOt6XrlWJthAV6sm8MQ7xiemxwQl+yMU3yIdG9FM09WuS6ps7AMPfOhob9DxvYhKtsIPUDW1tUeCkqeNaPY3gpIKc39cbMxu7AMPfOhA7/jT8eBpQ4NShhrRf/Va07Wi3qwfpqBnykBAVFXGTwY14t6DyYFmYvfHpwaa9Ws6rb0R/kja4Qkm9jmSjkAkuccG8AE6oxlBtPnDiV1jn8bD/bd2uQPxEW8oRTr4XlNQTH4aHRvHv1wfIvIQ14197rXYkLXJGvvW7btXVtcTZARWrf8DIiI3nrsDiYOh4Tv9J2GgxxuSSysBhczCxzw2UPcVNW1o2Rse8YVTtLwWN40aj/mmhxoJfF+Hlnwx0pDjeJbhfOuRvhnqpOVO7Rx9NQ74lgyAzOKDjLqv2juP6OAaBtfw3h+7bByEfvAsDz9KgN+EzkW3UHWtioTI+am/NuwoYZdbVBdXBEL858PbA/+LDRwC163enotUjD0AAAAASUVORK5CYII=",
+								"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAi5JREFUeNqklVEoQ1EYx8e8rJSaiFarqZWIFBFZs4c1NS8rT0oRT1Ie1jx55EmeKE+iPClttfawtj3MEnlSUyKiRG7UsqyUsvl/+pbjuPe6s1O/7r3/853vnHvO952vJpPJmKppLpdLt7+2Al8d4B68gH6jg+pKpZJR2zVg4/d1MGBkkNofWMEoaJI0r/BNf2AXB2GrvcAmO6tJp9PiNw06ZYdvYAW0gAnWxJYH++ABzHM/aX1ut/taa4u6BEcWsKzz9w1gRkXrBZoTHIICqP9nUL2Dgx9nQBMI5MGKpFXCqsfjUfQmIGwq2jOYBm3ACWZZk+3sv6JIMmgBE5KmgG6wA8zMFmu3ku14KpVy/JigWCyawCA4AY/AylqZIFDAMrgCF2CdtUXJ1gJuEolEFri/wjQej9PzSYp7sTUDM3iU9HYO0VeNcTmfz9dYjqIPncgwa/R/cJ9Wy4lnMAIiGpHh5QNdEqMFXHOf2hjyNfa1RbFYTJyVtulCytpbMAQU7jfzO2X4ERAPlXLI6ff7Fa0oopVuSpoDZMEUqGdmWHNItruic63btKCyn7TybQOZ/PZXHlhAqIpMXohGoza9CXqBtYoJKAmH9bboTjhAurg2WJ9UyRMKwz22D/EF+cAX5nc9CIfDatcwFZRj4TysnIxi3HeC80AgYIpEIjSmB5zhO/fXIVPRSKqsNsmVjtolOS93wmlevqb/U5ODvEoqRHOGi34FxYRW3FppBfoUYACFWIRGhlH1RgAAAABJRU5ErkJggg==",
 								"Settings",		  0),
-						new MenuItemBean(
-								"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAHZJREFUOE9jYEhrYSAVL1694z8Ig/WBCJgAPhrJEjlkdSQZgG4B0FA2FAPAAji8hEUzxOvIXiBBszRcLSEDsNisgjMQsbiAE5vTiTYAl7+JNYAZSSEPsuuINQBnAhvcBggRkS9EycoL2PIJSZkJrwFEOBtnjAAA3+nYo4sOzcsAAAAASUVORK5CYII=", 
-								"Edit Favorites", 0)
 					}
 				)
 			)
@@ -366,12 +344,23 @@ public class NewsfeedVM {
 	
 	@Command
 	@NotifyChange({"currentPost","modalShow","likeStatus"})
-	public void feedback(@BindingParam("instance") PostBean post) {
+	public void feedback(
+			@BindingParam("instance") PostBean post,
+			@BindingParam("ref")      Component likeArea
+	) {
 		currentPost = post;
 		likeStatus = currentPost.getLikeList().contains(currentUser);
+		currentPost.setLiked(likeStatus);
 		modalShow = true;
 		
-		feedbackPopup.open(feedbackPopup.getFellow("mainWindow"), "bottom_right");
+		if (mobile) {
+			feedbackPopup.open(feedbackPopup.getFellow("mainWindow"), "bottom_right");
+		} else {
+			Clients.evalJavaScript("jq('.newsfeedPanel .z-center-body').eq(0).scrollTop(700);");
+			Clients.scrollIntoView(likeArea);
+		
+			feedbackPopup.open(likeArea, "after_start");
+		}
 	}
 
 	@Command
@@ -387,7 +376,9 @@ public class NewsfeedVM {
 	
 	@Command
 	@NotifyChange({"currentPost", "likeStatus"})
-	public void likePost() {
+	public void likePost(@BindingParam("instance") PostBean post) {
+		if (post != null) currentPost = post;
+		
 		List<AuthorBean> likeList = currentPost.getLikeList();
 		likeStatus = likeList.contains(currentUser);
 		
@@ -398,6 +389,8 @@ public class NewsfeedVM {
 		}
 		
 		likeStatus = !likeStatus;
+		
+		currentPost.setLiked(likeStatus);
 	}
 	
 	@Command
@@ -405,7 +398,7 @@ public class NewsfeedVM {
 	public void toggleMenu() {
 		menuOpen = !menuOpen;
 		
-		if (NewsfeedVM.isWideScreen(orient))
+		if ("landscape".equals(orient))
 			contactOpen = !menuOpen;
 		
 		if (hideContact) contactOpen = false;
@@ -419,38 +412,58 @@ public class NewsfeedVM {
 		
 		menuOpen = "right".equals(direction);
 		
-		if (NewsfeedVM.isWideScreen(orient))
+		if ("landscape".equals(orient))
 			contactOpen = !menuOpen;
 		
 		if (hideContact) contactOpen = false;
 	}
 	
 	@Command
-	@NotifyChange({"contactOpen", "viewportWidth"})
+	@NotifyChange({"contactOpen", "menuOpen"})
 	public void updateDeviceStatus(
 			@BindingParam("orient") String orient,
 			@BindingParam("width")  int    width) {
-		if (!mobile && width > 1366) {
-			viewportWidth = "1366px";
-		} else {
-			viewportWidth = width + "px";
-		}
 		
-		if (mobile && !this.orient.equals(orient)) {
-			this.orient = orient;
-			
-			Clients.showNotification(orient, Clients.NOTIFICATION_TYPE_WARNING, null, "middle_center", 2000);
-			
-			if ("portrait".equals(orient)) {
-				if (contactOpen) contactOpen = false;
+		Window mainWindow = ((Window) feedbackPopup.getFellow("mainWindow"));
+		
+		// Adjust width for desktop
+		if (!mobile) {
+			if (width > 1366) {
+				mainWindow.setWidth("1366px");
+				feedbackPopup.setWidth("700px");
 			} else {
-				if (!menuOpen && !contactOpen) 	contactOpen = true;
+				mainWindow.setWidth("100%");
+				feedbackPopup.setWidth("50%");
+			}
+		} else {
+			feedbackPopup.setWidth("70%");
+			feedbackPopup.setHeight("100%");
+			
+			// For mobile devices, responsive to orientation change
+			if (!this.orient.equals(orient)) {
+				this.orient = orient;
+
+				// Android native browser does not resize after rotate
+				Clients.resize(mainWindow);
+
+				Clients.showNotification(orient, Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 2000);
+			
+				if ("portrait".equals(orient)) {
+					if (contactOpen) contactOpen = false;
+				} else {
+					if (!menuOpen && !contactOpen) 	contactOpen = true;
+				}
 			}
 		}
 		
-		if (width < 700) {
+		if (width <= 800) {
 			hideContact = true;
 			contactOpen = false;
+		} else {
+			hideContact = false;
+			if (!menuOpen) contactOpen = true;
+			
+			if (!mobile) menuOpen = true;
 		}
 	}
 	
@@ -476,6 +489,6 @@ public class NewsfeedVM {
 		} else
 			return;
 		
-		Clients.showNotification(msg, Clients.NOTIFICATION_TYPE_WARNING, comp, pos, 2000);
+		Clients.showNotification(msg, Clients.NOTIFICATION_TYPE_INFO, comp, pos, 2000);
 	}
 }

@@ -1,10 +1,10 @@
-<zk>
-	<toolbar children="@load(vm.toolbarModel)">
-		<template name="children">
+<hbox sclass="toolbar" children="@load(vm.toolbarModel)" width="100%">
+	<template name="children">
+		<cell align="center" width="33%">
 			<toolbarbutton 
 				image="${each[1]}" 
 				label="${each[0]}"   
-				onClick='@command("showMessage", pos="after_pointer")' />
-		</template>
-	</toolbar>
-</zk>
+				onClick='@command("showMessage", pos="after_center")' />
+		</cell>
+	</template>
+</hbox>
