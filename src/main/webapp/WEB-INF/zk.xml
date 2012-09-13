@@ -1,8 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <zk>
-	<preference>
-		<name>org.zkoss.zk.ui.WebApp.name</name>
-		<value>ZK Social</value>
-	</preference>
+	<device-config>
+		<device-type>ajax</device-type>
+		<embed><![CDATA[
+	<script type="text/javascript">
+	var old2 = zAu.cmd0.obsolete;
+	zAu.cmd0.obsolete = function (dtid, msg) {
+		var cus = msg == 'true';
+		msg = cus ? 'Oops! Time out!\n Click Reload to continue.' : msg;
+		if (msg.startsWith("script:"))
+			return $eval(msg.substring(7));
+
+		var v = zk.Desktop.$(dtid);
+		if (v && (v = v.requestPath))
+			msg = msg.replace(dtid, v + ' (' + dtid + ')');
+
+		jq.alert(msg, {
+			icon: cus ? 'None': 'ERROR',
+			title: cus ? 'Session Timeout': '',
+			button: {
+				Reload: function () {location.reload();}
+			}
+		});
+	}
+	</script>
+	<style>
+	.z-msgbox-none {
+		display: none;
+	}</style>
+		]]></embed>
+	</device-config>
+	<session-config>
+    <timeout-message>true</timeout-message>
+	</session-config>
 </zk>

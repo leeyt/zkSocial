@@ -23,15 +23,17 @@
 		onClick='@command("feedback", instance=post, ref=self)'>
 		<hbox width="100%">
 			<cell width="70%">
-				<toolbarbutton 
+				<toolbarbutton
 					style="color: #576B95; font-size: 15px;"
 					onClick='@command("likePost", instance=post)'
-					label='@load(post.liked ? "Unlike" : "Like")' />
+					label='@init("Like") @load(post.liked ? "Unlike" : "Like", after="likePost")'
+					autodisable="true" />
 				<label value="‧" />
 				<toolbarbutton
 					style="color: #576B95; font-size: 15px;"
 					onClick='@command("feedback", instance=post, ref=self.parent.parent.parent)'
-					label="Comment" />
+					label="Comment"
+					autodisable="true" />
 			</cell>
 				
 			<cell width="30%" align="right">	
@@ -39,7 +41,7 @@
 				<span visible="@bind(post.likeCount > 0)">
 					<image
 						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAMCAYAAABr5z2BAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAMJJREFUeNpi/P//PwNjeisDAeAHxF1A/AuIHYD4HUyCiYEw4AfiRiDWBuI1QOyBLEmMAUVQjSCDYoH4OLIkCwHNKkCcCbVdC4hfA/F9XC44D8T/oXgXEEcB8V4gLoNqvAzEL4D4DBA/AeKl6C5QRGLbA/EpIPYE4mtQsY9AHARl8wDxAXxeYAbiGjxe+wLEbPgCkZmBSMDEQCGg2AB80TgTSs+FBigy4MFmACiabKDsI0A8C5oOQFF5E80ACViCAggwAJyDJK117s9tAAAAAElFTkSuQmCC" />
-					<label value="@bind(post.likeCount)" />
+					<label value='@init(post.likeCount) @load(post.likeCount, after="likePost")' />
 				</span>
 				<!--  -->
 						
@@ -47,7 +49,7 @@
 				<span visible="@bind(post.commentCount > 0)">
 					<image
 						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAMCAYAAABr5z2BAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIZJREFUeNpiZEhrYQACVyBuBGJLBsLgFBDXA/EOEIcFKrgIiCUYiANmQLwaiAWA+C8TVJBYzTDAA8UMTAwUgqFtwF9kA66RqPkmEH9BjsYgIO6FxoYuELNBxb9AFSODF0BcBuOwIJnoA2WfhMY1SLMbEB8nNQzOEqsZlwEgTZ7EaAYBgAADAEJ0F5+E7gg/AAAAAElFTkSuQmCC" />
-					<label value="@bind(post.commentCount)" />
+					<label value="@load(post.commentCount)" />
 				</span>
 			</cell>
 			<!--  -->

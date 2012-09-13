@@ -11,6 +11,7 @@ body {
 
 .z-page {
   font-family: 'Helvetica';
+  background: #F8F8F8;
 }
 
 .z-west, .z-center {
@@ -35,9 +36,20 @@ td.z-listcell {
 /* ----------------------------------------------------------------------- */
 /* Customize Notification                                                  */
 /* ----------------------------------------------------------------------- */
+.z-notification-info {
+	text-align: center;
+	vertical-align: middle;
+}
+
 .z-notification-info .z-notification-cl {
 	background: #ededed;
 	color: black;
+}
+
+.z-notification-info .z-notification-cnt {
+	position: relative;
+	left: -15px;
+	text-align: center;
 }
 
 .z-notification-info .z-notification-pointer-l {
@@ -75,15 +87,20 @@ td.z-listcell {
 	
 	line-height: 24px;
 	
-	${t:gradient('ver', '#002B37; #004D63')}
+	${t:gradient('ver', '#02B0E5; #007599')}
 	
 	<c:if test="${zk.ie == 9}">
-	background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPgo8bGluZWFyR3JhZGllbnQgaWQ9Imc2MyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMCUiIHkyPSIxMDAlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzAwMkIzNyIgb2Zmc2V0PSIwIi8+PHN0b3Agc3RvcC1jb2xvcj0iIzAwNEQ2MyIgb2Zmc2V0PSIxIi8+CjwvbGluZWFyR3JhZGllbnQ+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZzYzKSIgLz4KPC9zdmc+);
+	background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPgo8bGluZWFyR3JhZGllbnQgaWQ9Imc1NjIiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+CjxzdG9wIHN0b3AtY29sb3I9IiMwMkIwRTUiIG9mZnNldD0iMCIvPjxzdG9wIHN0b3AtY29sb3I9IiMwMDc1OTkiIG9mZnNldD0iMSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2c1NjIpIiAvPgo8L3N2Zz4=);
+	filter: none;
 	</c:if>
 	
 	<c:if test="${zk.ie == 8}">
-	background: #002B37;
+	background: #007599;
 	</c:if>
+}
+
+.menuPanel .z-west-body {
+	background: #002B37;
 }
 
 /* Left-align back-button */
@@ -114,6 +131,7 @@ td.z-listcell {
 
 	<c:if test="${zk.ie == 9}">
 	background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPgo8bGluZWFyR3JhZGllbnQgaWQ9Imc4ODQiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+CjxzdG9wIHN0b3AtY29sb3I9IiM0MzRCNUMiIG9mZnNldD0iMCIvPjxzdG9wIHN0b3AtY29sb3I9IiMzOTQxNTIiIG9mZnNldD0iMSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2c4ODQpIiAvPgo8L3N2Zz4=);
+	filter: none;
 	</c:if>
 
 	<c:if test="${zk.ie == 8}">
@@ -172,7 +190,9 @@ td.z-listcell {
 	
 	<c:if test="${zk.ie == 9}">
 	background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPgo8bGluZWFyR3JhZGllbnQgaWQ9ImcxNzgiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+CjxzdG9wIHN0b3AtY29sb3I9IiMzRTQ4NUUiIG9mZnNldD0iMCIvPjxzdG9wIHN0b3AtY29sb3I9IiMzMjNBNEQiIG9mZnNldD0iMSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2cxNzgpIiAvPgo8L3N2Zz4=);
+	filter: none;
 	</c:if>
+	
 	<c:if test="${zk.ie == 8}">
 	background: #3E485E;
 	</c:if>
@@ -189,10 +209,11 @@ td.z-listcell {
 	padding: 0;
 	border-bottom: none;
 	
- 	${t:gradient('ver', '#009EC2; #0079A7')}
+ 	${t:gradient('ver', '#02B0E5; #007599')}
  	
  	<c:if test="${zk.ie == 9}">
- 	background-image:url(data:image/svg+xml;base64,xPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPgo8bGluZWFyR3JhZGllbnQgaWQ9Imc4OTkiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+CjxzdG9wIHN0b3AtY29sb3I9IiMwMDlFQzIiIG9mZnNldD0iMCIvPjxzdG9wIHN0b3AtY29sb3I9IiMwMDc5QTciIG9mZnNldD0iMSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2c4OTkpIiAvPgo8L3N2Zz4=);
+ 	background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPgo8bGluZWFyR3JhZGllbnQgaWQ9Imc4OTkiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+CjxzdG9wIHN0b3AtY29sb3I9IiMwMDlFQzIiIG9mZnNldD0iMCIvPjxzdG9wIHN0b3AtY29sb3I9IiMwMDc5QTciIG9mZnNldD0iMSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2c4OTkpIiAvPgo8L3N2Zz4=);
+ 	filter: none;
  	</c:if>
  	
  	<c:if test="${zk.ie == 8}">
@@ -206,13 +227,17 @@ td.z-listcell {
 	filter: invert(1);
 }
 
+.contentPanel .z-center-header button.z-button-os {
+	border: none;
+}
+
 .contentPanel .z-listcell.contact  .z-label.contact-status {
 	display: inline-block;
 	padding-right: 6px;
 }
 
 .newsfeedPanel .z-center-header {
-    background: #F5F7F9;
+    background: #E1E1E1;
 }
 
 .newsfeedPanel .z-caption-l {
@@ -224,7 +249,7 @@ td.z-listcell {
 }
 
 .newsfeedPanel .z-center-body {
-	background: #BFC7D9;
+	background: #F8F8F8;
 }
 
 .newsfeedPanel .z-toolbarbutton-cnt {
@@ -272,6 +297,14 @@ td.z-listcell {
 
 .post .z-html.post-article img {
 	width: 80%;
+}
+
+.feedback .z-center-body {
+	background: #FFFFFF;
+}
+
+.feedback .z-button-os {
+	background: blue;
 }
 
 .comment .z-html.post-article {
@@ -324,7 +357,7 @@ td.z-listcell {
   border: 1px black solid;
   border-radius: 2px;
   padding: 2px;
-  background-color: #00B8DF;
+  background-color: transparent;
 }
 
 .button:active {
@@ -332,15 +365,20 @@ td.z-listcell {
 }
 
 .z-caption button,
-.z-south button,
+
 .z-button-os {
 	font-size: 14px;
-	background: #008CB7;
+	background: transparent;
 	color: white;
 	border: none;
 	border-radius: 2px;
 	padding: 1px 10px;
 	border: black ridge 1px;
+}
+
+.z-south button {
+	color: white;
+	background: #018FB9;
 }
 
 .z-caption button:active {
@@ -393,6 +431,7 @@ td.z-listcell {
 	
 	<c:if test="${zk.ie == 9}">
 	background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPgo8bGluZWFyR3JhZGllbnQgaWQ9Imc1IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgo8c3RvcCBzdG9wLWNvbG9yPSIjRDhEOEQ4IiBvZmZzZXQ9IjAiLz48c3RvcCBzdG9wLWNvbG9yPSIjRkZGRkZGIiBvZmZzZXQ9IjEiLz4KPC9saW5lYXJHcmFkaWVudD4KPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNnNSkiIC8+Cjwvc3ZnPg==);
+	filter: none;
 	</c:if>
 	
 	<c:if test="${zk.ie == 8}">

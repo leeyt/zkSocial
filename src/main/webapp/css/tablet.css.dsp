@@ -18,7 +18,7 @@
 }
 
 .menuPanel .z-west-body {
-	background: #32394A;
+	background: #112f37;
 }
 
 .menuPanel .z-west-capcnt {
@@ -41,7 +41,6 @@
 	background-color: #ffffff;
 }
 
-
 /* iPad Landscape Orientation */
 @media screen and (orientation: landscape) {
 }
@@ -63,7 +62,6 @@
 }
 
 @media screen and (max-width: 320px) {
-	
 	.menuPanel .z-borderlayout-icon {
 		display: inline;
 	}
@@ -91,7 +89,6 @@
 .z-button-os:focus,
 .z-button-os:hover {
 	background: #008CB7;
-	color: ${test};
 }
 
 .newsfeedPanel .z-center-header,

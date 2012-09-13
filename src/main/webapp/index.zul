@@ -63,10 +63,7 @@
 				
 				<!-- Provide a way to access zkdemo -->
 				<caption>
-					<button
-						mold="os"
-						label="Back to zkdemo"
-						href="../zkdemo" />
+
 				</caption>
 				<!-- -->
 				
@@ -76,8 +73,9 @@
 			
 			<!-- Content Panel -->		
 			<center
+				id="contentPanel"
 				sclass="contentPanel"
-				border="none"
+				border="0"
 				hflex="1"
 				onSwipe='@command("contentSwipe", dir=event.swipeDirection)'>
 				

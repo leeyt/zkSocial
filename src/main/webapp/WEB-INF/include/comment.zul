@@ -7,7 +7,7 @@
 				onClick='@command("likePost")' />
 		</caption>
 		
-		<vlayout children="@load(vm.currentPost.commentList)">
+		<vlayout children="@load(vm.currentPost.commentList)" style="background: white;">
 			<template name="children" var="comment">
 				<separator spacing="2px" />
 				<vlayout>
