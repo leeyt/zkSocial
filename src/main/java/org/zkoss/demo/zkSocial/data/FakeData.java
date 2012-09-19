@@ -25,7 +25,7 @@ public class FakeData {
 		"<p>ZK 6.5 introduces new features that enable developers to design user interfaces that take advantage of " +
 		"tablet-specific user interaction methods such as swiping and changing device orientations. You can also view" +
 		" the <a href='http://blog.zkoss.org/index.php/2012/08/14/zk-6-5-tablet-ui-design/'>blog here</a>.</p>" +
-		"<iframe src='http://www.youtube.com/embed/EgxTmMIgzzU'></iframe>",
+		"<p><img src='http://books.zkoss.org/images/6/6e/ResponsiveApproaches.png'/></p>",
 		
 		"<p>The timeline below shows ZK and our history. For more information please take a look at our " +
 		"<a href='http://www.zkoss.org/support/about'>about page</a>.</p>" +

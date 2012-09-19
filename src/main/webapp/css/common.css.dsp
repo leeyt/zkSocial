@@ -36,6 +36,10 @@ td.z-listcell {
 /* ----------------------------------------------------------------------- */
 /* Customize Notification                                                  */
 /* ----------------------------------------------------------------------- */
+.z-notification .z-notification-cl {
+	padding-left: 5px;
+}
+
 .z-notification-info {
 	text-align: center;
 	vertical-align: middle;
@@ -48,7 +52,7 @@ td.z-listcell {
 
 .z-notification-info .z-notification-cnt {
 	position: relative;
-	left: -15px;
+	/* left: -15px; */
 	text-align: center;
 }
 

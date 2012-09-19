@@ -12,6 +12,10 @@
   	cursor: pointer;
 }
 
+.z-notification-info .z-notification-cnt {
+	padding: 17px;
+}
+
 .z-west-header, .z-center-header, .z-east-header
 .like-area {
 	height: 48px;

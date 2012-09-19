@@ -12,7 +12,8 @@
 	 	if='${execution.serverName == "www.zkoss.org" or execution.serverName == "www.potix.com"}'>
 	<![CDATA[
 		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-34371271-1']);
+		_gaq.push(['_setAccount', 'UA-121377-3']);
+		_gaq.push(['_setDomainName', 'zkoss.org']);
 		_gaq.push(['_trackPageview']);
 		
 		(function() {
