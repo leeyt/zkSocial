@@ -11,22 +11,25 @@
 		type="text/javascript"
 	 	if='${execution.serverName == "www.zkoss.org" or execution.serverName == "www.potix.com"}'>
 	<![CDATA[
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-121377-3']);
-		_gaq.push(['_setDomainName', 'zkoss.org']);
-		_gaq.push(['_trackPageview']);
-		
-		(function() {
-		  var ga = document.createElement('script'); 
-		  ga.type = 'text/javascript'; 
-		  ga.async = true;
-		  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + 
-				  '.google-analytics.com/ga.js';
-		  var s = document.getElementsByTagName('script')[0]; 
-		  s.parentNode.insertBefore(ga, s);
-		})();
-	]]>
-	</script>
+		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+		document.write(unescape("%3Cscript src='" + gaJsHost + 
+				"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+
+		var gafn = function () {
+			if (window._gat) {
+				gafn = null;
+				try {
+					var pageTracker = _gat._getTracker("UA-121377-3");
+					pageTracker._setDomainName("zkoss.org");
+					pageTracker._initData();
+					pageTracker._trackPageview();
+				} catch (e) {
+				}
+			} else
+				setTimeout(gafn, 1000);
+			};
+		gafn();
+	]]></script>
 
 	<!-- Main Window -->
 	<window
