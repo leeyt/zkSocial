@@ -27,7 +27,7 @@
 				}
 			} else
 				setTimeout(gafn, 1000);
-			};
+		};
 		gafn();
 	]]></script>
 

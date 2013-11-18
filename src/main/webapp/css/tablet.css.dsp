@@ -12,11 +12,11 @@
   	cursor: pointer;
 }
 
-.z-notification-info .z-notification-cnt {
+.z-notification-info .z-notification-content {
 	padding: 17px;
 }
 
-.z-west-header, .z-center-header, .z-east-header
+.z-west-header, .z-center-header, .z-east-header,
 .like-area {
 	height: 48px;
 }
@@ -25,11 +25,11 @@
 	background: #112f37;
 }
 
-.menuPanel .z-west-capcnt {
+.menuPanel .z-west-caption {
 	margin: 10px 10px;
 }
 
-.contentPanel .z-center-capcnt {
+.contentPanel .z-center-caption {
 	margin: 10px 10px;
 }
 
@@ -45,6 +45,10 @@
 	background-color: #ffffff;
 }
 
+.z-notification-pointer ~ .z-notification-content {
+	width: 150px;
+}
+
 /* iPad Landscape Orientation */
 @media screen and (orientation: landscape) {
 }
@@ -55,7 +59,7 @@
 
 @media screen and (max-width: 480px) {
 	.z-notification .z-notification-cl,
-	.z-notification .z-notification-cnt {
+	.z-notification .z-notification-content {
 		width: 100px;
 		height: 50px;
 	}
@@ -89,9 +93,7 @@
 }
 
 .z-button:focus,
-.z-button:hover,
-.z-button-os:focus,
-.z-button-os:hover {
+.z-button:hover {
 	background: #008CB7;
 }
 

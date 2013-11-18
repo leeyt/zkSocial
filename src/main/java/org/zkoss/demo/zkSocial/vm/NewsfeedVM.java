@@ -419,7 +419,7 @@ public class NewsfeedVM {
 	}
 	
 	@Command
-	@NotifyChange({"contactOpen", "menuOpen"})
+	@NotifyChange({"contactOpen", "menuOpen", "modalShow"})
 	public void updateDeviceStatus(
 			@BindingParam("orient") String orient,
 			@BindingParam("width")  int    width) {
@@ -453,6 +453,9 @@ public class NewsfeedVM {
 				} else {
 					if (!menuOpen && !contactOpen) 	contactOpen = true;
 				}
+				
+				feedbackPopup.close();
+				modalShow = false;
 			}
 		}
 		

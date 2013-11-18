@@ -12,7 +12,7 @@
 	width: 100%;
 	height: 38px;
 	
-	${t:gradient('ver', '#02B0E5; #007599')}
+	${t:gradient('ver', '#02B0E5 0%; #007599 100%')}
 	
 	<c:if test="${zk.ie == 9}">
 	background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPgo8bGluZWFyR3JhZGllbnQgaWQ9Imc1NjIiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+CjxzdG9wIHN0b3AtY29sb3I9IiMwMkIwRTUiIG9mZnNldD0iMCIvPjxzdG9wIHN0b3AtY29sb3I9IiMwMDc1OTkiIG9mZnNldD0iMSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2c1NjIpIiAvPgo8L3N2Zz4=);
@@ -40,11 +40,11 @@
 	background: #112f37;
 }
 
-.menuPanel .z-west-capcnt {
+.menuPanel .z-west-caption {
 	margin: 8px 5px;
 }
 
-.contentPanel .z-center-capcnt {
+.contentPanel .z-center-caption {
 	margin: 6px 5px;
 }
 
