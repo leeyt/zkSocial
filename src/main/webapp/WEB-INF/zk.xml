@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zk>
+    <!-- 
+    <client-config>
+        <debug-js>true</debug-js>
+    </client-config>
+    <library-property>
+        <name>org.zkoss.web.classWebResource.cache</name>
+        <value>false</value>
+    </library-property>
+    <library-property>
+        <name>org.zkoss.zul.nativebar</name>
+        <value>true</value>
+    </library-property>
+    -->
 	<device-config>
 		<device-type>ajax</device-type>
 		<embed><![CDATA[

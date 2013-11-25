@@ -16,6 +16,10 @@
 	padding: 17px;
 }
 
+.z-notification-icon {
+	display: none;
+}
+
 .z-west-header, .z-center-header, .z-east-header,
 .like-area {
 	height: 48px;

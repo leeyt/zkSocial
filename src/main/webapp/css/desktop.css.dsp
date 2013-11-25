@@ -4,9 +4,6 @@
 
 <c:include page="common.css.dsp" />
 
-.z-page {
-}
-
 .z-page::before {
 	content: '';
 	width: 100%;
